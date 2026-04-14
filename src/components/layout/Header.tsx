@@ -91,8 +91,8 @@ const Header: React.FC = () => {
       <div className="container flex h-16 items-center justify-between gap-4 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold text-foreground md:text-2xl">
-            {isRTL ? 'بيكيو' : 'Pickio'}
+          <span className="text-xl text-foreground md:text-2xl font-bold">
+           Pic<span className='text-red-600 '>k</span>io
           </span>
         </Link>
 
@@ -133,9 +133,9 @@ const Header: React.FC = () => {
           </Button>
 
           {/* Language Switcher */}
-          <DropdownMenu>
+          <DropdownMenu >
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="hover:bg-red-100">
                 <Globe className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -155,7 +155,7 @@ const Header: React.FC = () => {
 
           {/* Wishlist */}
           <Link to="/wishlist">
-            <Button variant="ghost" size="icon" className="hidden sm:flex relative">
+            <Button variant="ghost" size="icon" className="hidden sm:flex relative hover:bg-red-100">
               <Heart className="h-5 w-5" />
               {wishlistCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
@@ -167,7 +167,7 @@ const Header: React.FC = () => {
 
           {/* Cart */}
           <Link to="/cart">
-            <Button variant="ghost" size="icon" className="relative">
+            <Button variant="ghost" size="icon" className="relative hover:bg-red-100">
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
@@ -179,7 +179,7 @@ const Header: React.FC = () => {
 
           {/* User */}
           <Link to="/profile">
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
+            <Button variant="ghost" size="icon" className="hidden sm:flex hover:bg-red-100">
               <User className="h-5 w-5" />
             </Button>
           </Link>
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden">
+              <Button variant="ghost" size="icon" className="lg:hidden hover:bg-red-100">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>

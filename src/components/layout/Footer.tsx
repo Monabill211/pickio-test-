@@ -1,8 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { FaTiktok } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -22,12 +26,7 @@ const Footer: React.FC = () => {
     { href: '/returns', label: t('footer.returns') },
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: linkedin, href: '#', label: 'linkedin' },
-  ];
+
 
   return (
     <footer className="bg-foreground text-background">
@@ -35,23 +34,25 @@ const Footer: React.FC = () => {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">
-              {isRTL ? 'بيكيو' : 'Pickio'}
-            </h3>
+             <span className="text-xl font-bold text-white md:text-2xl font-bold">
+           Pic<span className='text-red-600 '>k</span>io
+          </span>
             <p className="text-sm text-background/70 leading-relaxed">
               {t('footer.aboutText')}
             </p>
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-background/10 text-background transition-colors hover:bg-primary hover:text-primary-foreground"
-                  aria-label={social.label}
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
-              ))}
+              <a href='https://www.facebook.com/pickioOffice/' target='_blank' rel='noopener noreferrer' className='transition-all duration-300 ease-in-out hover:-translate-y-1'>
+                <FacebookIcon className=' hover:text-red-500' />
+              </a>
+              <a href='https://www.instagram.com/pickio_office/' target='_blank' rel='noopener noreferrer' className='transition-all duration-300 ease-in-out hover:-translate-y-1'>
+                <InstagramIcon className=' hover:text-red-500' />
+              </a>
+              <a href='https://www.linkedin.com' target='_blank' rel='noopener noreferrer' className='transition-all duration-300 ease-in-out hover:-translate-y-1'>
+                <LinkedInIcon className=' hover:text-red-500' />
+              </a>
+              <a href='https://www.tiktok.com' target='_blank' rel='noopener noreferrer' className='transition-all duration-300 ease-in-out hover:-translate-y-1'>
+                <FaTiktok className=' hover:text-red-500 cursor-pointer ' />
+              </a>
             </div>
           </div>
 
@@ -63,7 +64,7 @@ const Footer: React.FC = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-sm text-background/70 transition-colors hover:text-background"
+                  className="text-sm text-background/70  hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1"
                 >
                   {link.label}
                 </Link>
@@ -79,7 +80,7 @@ const Footer: React.FC = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="text-sm text-background/70 transition-colors hover:text-background"
+                  className="text-sm text-background/70  hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1"
                 >
                   {link.label}
                 </Link>
@@ -91,18 +92,26 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">{t('footer.contactUs')}</h3>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-background/70">
+               <a href="https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D" >
+              <div className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
                 <MapPin className="h-5 w-5 flex-shrink-0" />
                 <span>{t('footer.address')}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-background/70">
+              </div> 
+              </a>
+               <a href="tel:+1234567890" >
+              <div  style={{marginTop:"15px"}}  className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
+            
                 <Phone className="h-5 w-5 flex-shrink-0" />
                 <span dir="ltr">{t('footer.phone')}</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-background/70">
+                
+              </div></a>
+
+               <a href="tel:+1234567890"  >
+              <div  style={{marginTop:"15px"}}  className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
                 <Mail className="h-5 w-5 flex-shrink-0" />
                 <span>{t('footer.email')}</span>
               </div>
+              </a>
             </div>
           </div>
         </div>
