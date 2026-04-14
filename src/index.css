@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm Sand & Terracotta Furniture Theme */
+    --background: 40 33% 98%;
+    --foreground: 220 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
+
+    --primary: 16 50% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 35 30% 92%;
+    --secondary-foreground: 220 20% 15%;
+
+    --muted: 35 20% 94%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 35 40% 88%;
+    --accent-foreground: 220 20% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 16 50% 48%;
+
+    --radius: 0.75rem;
+
+    /* Custom furniture theme tokens */
+    --warm-sand: 40 33% 96%;
+    --warm-cream: 40 40% 98%;
+    --terracotta: 16 50% 48%;
+    --terracotta-light: 16 50% 58%;
+    --terracotta-dark: 16 55% 38%;
+    --charcoal: 220 20% 15%;
+    --charcoal-light: 220 15% 25%;
+    --gold: 38 70% 50%;
+    --olive: 80 20% 40%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(40, 33%, 96%) 0%, hsl(35, 40%, 92%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(40, 30%, 98%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(16, 50%, 48%) 0%, hsl(16, 60%, 55%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(220 20% 15% / 0.08);
+    --shadow-md: 0 8px 24px -8px hsl(220 20% 15% / 0.12);
+    --shadow-lg: 0 16px 48px -12px hsl(220 20% 15% / 0.15);
+    --shadow-card: 0 4px 20px -4px hsl(220 20% 15% / 0.08);
+    --shadow-product: 0 8px 32px -8px hsl(220 20% 15% / 0.1);
+
+    /* Sidebar */
+    --sidebar-background: 40 33% 98%;
+    --sidebar-foreground: 220 20% 15%;
+    --sidebar-primary: 16 50% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 35 40% 88%;
+    --sidebar-accent-foreground: 220 20% 15%;
+    --sidebar-border: 35 20% 88%;
+    --sidebar-ring: 16 50% 48%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 40 20% 95%;
+
+    --card: 220 18% 14%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 220 18% 14%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 16 55% 55%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 40 20% 95%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 220 15% 22%;
+    --accent-foreground: 40 20% 95%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 16 55% 55%;
+
+    --warm-sand: 220 18% 14%;
+    --warm-cream: 220 15% 12%;
+    --terracotta: 16 55% 55%;
+    --terracotta-light: 16 50% 65%;
+    --terracotta-dark: 16 60% 45%;
+    --charcoal: 40 20% 90%;
+    --charcoal-light: 40 15% 75%;
+    --gold: 38 65% 55%;
+    --olive: 80 25% 50%;
+
+    --sidebar-background: 220 18% 12%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 16 55% 55%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 220 15% 20%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 220 15% 22%;
+    --sidebar-ring: 16 55% 55%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* RTL Arabic font */
+  [dir="rtl"] body,
+  [dir="rtl"] {
+    font-family: 'Cairo', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-arabic {
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .font-english {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-product {
+    box-shadow: var(--shadow-product);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Smooth RTL/LTR transitions */
+html {
+  transition: direction 0.2s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}

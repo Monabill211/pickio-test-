@@ -1,0 +1,100 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isAuthenticated() && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'superadmin'];
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Categories collection
+    // - Public read (for client portal)
+    // - Write requires authentication (admin only in production)
+    match /categories/{categoryId} {
+      allow read: if true; // Public read for client portal
+      allow create, update, delete: if isAuthenticated(); // For development - change to isAdmin() in production
+    }
+    
+    // Products collection
+    // - Public read (for client portal)
+    // - Write requires authentication (admin only in production)
+    match /products/{productId} {
+      allow read: if true; // Public read for client portal
+      allow create, update, delete: if isAuthenticated(); // For development - change to isAdmin() in production
+    }
+    
+    // Orders collection
+    // - Anyone can create orders (for guest checkout)
+    // - Users can read their own orders (by customerId or email)
+    // - Admins can read/write all orders
+    match /orders/{orderId} {
+      allow read: if isAuthenticated() && (
+        (resource.data.customerId != null && isOwner(resource.data.customerId)) || 
+        (resource.data.customer.email != null && resource.data.customer.email == request.auth.token.email) ||
+        isAdmin()
+      ) || isAdmin(); // Admins can read all orders
+      allow create: if true; // Allow guest checkout - anyone can create orders
+      allow update, delete: if isAuthenticated() && (
+        (resource.data.customerId != null && isOwner(resource.data.customerId)) || 
+        isAdmin()
+      );
+    }
+    
+    // Users collection
+    // - Users can read their own data
+    // - Users can update their own data (except role)
+    // - Admins can read/write all users
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (
+        isOwner(userId) || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated(); // For development - restrict in production
+      allow update: if isAuthenticated() && (
+        (isOwner(userId) && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'phone', 'updatedAt'])) ||
+        isAdmin()
+      );
+      allow delete: if isAdmin();
+    }
+    
+    // Contact Messages collection
+    // - Anyone can create messages (contact form)
+    // - Only admins can read/update/delete
+    match /contactMessages/{messageId} {
+      allow create: if true; // Public can submit contact forms
+      allow read, update, delete: if isAdmin();
+    }
+    
+    // Settings collection
+    // - Public read (for client portal to display store info)
+    // - Only admins can write
+    match /settings/{settingsId} {
+      allow read: if true; // Public read for client portal
+      allow write: if isAdmin();
+    }
+    
+    // Content collection
+    // - Public read for published content (for client portal)
+    // - Only admins can write
+    match /content/{contentId} {
+      allow read: if true; // Public read for client portal
+      allow create, update, delete: if isAdmin();
+    }
+    
+    // Default: deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

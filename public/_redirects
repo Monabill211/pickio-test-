@@ -1,0 +1,5 @@
+# SPA fallback: serve index.html for all routes so React Router can handle them
+# Required for /admin/login, /admin/*, /shop, /product/:id, etc.
+# This must be in the publish directory (dist) root after build
+# Format: <path> <destination> <status_code>
+/*    /index.html   200

@@ -1,0 +1,11 @@
+# Netlify config for Pickio SPA (Vite + React Router)
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# SPA routing: all routes serve index.html (React Router handles client-side routing)
+# Fixes 404 on /admin/login, /admin/*, /shop, /product/:id, etc.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
