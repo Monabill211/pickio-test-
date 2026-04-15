@@ -58,7 +58,7 @@ export default function HeroPageSilder() {
               {/* image */}
               <img
                 src={slide.img}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover md:object-cover object-contain"
                 alt=""
               />
 
