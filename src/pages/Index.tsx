@@ -7,6 +7,8 @@ import FeaturedProducts from '@/components/home/FeaturedProducts';
 import Newsletter from '@/components/home/Newsletter';
 import HeroPageSilder from '@/components/home/HeroPageSilder';
 import ContactMe from '@/components/home/ContactMe';
+import Customers from '@/components/home/Customers';
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 
 const Index: React.FC = () => {
   return (
@@ -19,7 +21,9 @@ const Index: React.FC = () => {
         <FeaturedProducts />
         {/* <Newsletter /> */}
         <ContactMe />
+        <Customers />
       </main>
+      <FloatingWhatsApp />
       <Footer />
     </div>
   );
