@@ -5,7 +5,7 @@ import { Award, Truck, Shield, Users, Star, Heart } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
-import heroImage from '@/assets/hero-living-room.jpg';
+import heroImage from '@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg';
 
 const About: React.FC = () => {
   const { t } = useTranslation();
@@ -43,10 +43,10 @@ const About: React.FC = () => {
   ];
 
   const stats = [
-    { value: '15+', label: isRTL ? 'سنة خبرة' : 'Years Experience' },
-    { value: '10K+', label: isRTL ? 'عميل سعيد' : 'Happy Customers' },
-    { value: '500+', label: isRTL ? 'تصميم فريد' : 'Unique Designs' },
-    { value: '50+', label: isRTL ? 'حرفي ماهر' : 'Skilled Craftsmen' },
+    { value: '10+', label: isRTL ? 'سنة خبرة' : 'Years Experience' },
+    { value: '5K+', label: isRTL ? 'عميل سعيد' : 'Happy Customers' },
+    { value: '2k+', label: isRTL ? 'تصميم فريد' : 'Unique Designs' },
+    { value: '20+', label: isRTL ? 'حرفي ماهر' : 'Skilled Craftsmen' },
   ];
 
   return (
@@ -124,8 +124,8 @@ const About: React.FC = () => {
                 className="mt-6 text-lg leading-relaxed text-muted-foreground"
               >
                 {isRTL
-                  ? 'بدأت رحلتنا منذ أكثر من 15 عاماً في قلب القاهرة، حيث جمعنا بين شغفنا بالتصميم وحبنا للحرفة اليدوية. اليوم، نفخر بخدمة آلاف العائلات المصرية وتحويل منازلهم إلى أماكن تعكس شخصياتهم وأذواقهم الفريدة. كل قطعة نصنعها هي نتاج ساعات من العمل الدقيق والاهتمام بأدق التفاصيل.'
-                  : 'Our journey began over 15 years ago in the heart of Cairo, where we combined our passion for design with our love for handcraftsmanship. Today, we are proud to serve thousands of Egyptian families and transform their homes into places that reflect their unique personalities and tastes. Every piece we make is the result of hours of meticulous work and attention to the finest details.'}
+                  ? 'نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية تبدأ من تفاصيل المكان. بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة، ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا، لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل.ومع زيادة الطلب وثقة عملائنا، قمنا بتوسيع نشاطنا وافتتحنا أول مصنع خاص بنا لنضمن أعلى مستوى من الجودة والتحكم في كل مراحل الإنتاج. لم نتوقف عند هذا الحد، بل استمررنا في النمو بافتتاح الفرع الثاني للمعرض، ونعمل حاليًا على التوسع بشكل أكبر مع قرب افتتاح الفرع الثالث للمعرض والفرع الثاني للمصنع.نحن لا نقدم مجرد أثاث، بل نصنع حلول متكاملة تساعد الشركات على بناء بيئة عمل احترافية تعزز الإنتاجية وتعكس هوية قوية وعصرية.'
+                  : 'We are a company specialized in designing and manufacturing modern office furniture, driven by the belief that a strong workspace starts with the details. Our journey began with a small workshop built on passion and quality, and through consistent effort and smart marketing, we successfully established our first showroom to get closer to our clients and better understand their needs.With growing demand and increasing customer trust, we expanded our operations by launching our first factory to ensure full control over quality and production. Our growth continued with the opening of our second showroom, and we are currently moving forward with further expansion, with a third showroom and a second factory coming soon.We don’t just create furniture — we deliver complete workspace solutions that help businesses build professional environments, enhance productivity, and reflect a strong modern identity.'}
               </motion.p>
             </div>
           </div>
@@ -150,7 +150,7 @@ const About: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="rounded-2xl bg-card p-6 text-center shadow-card"
+                  className="rounded-2xl bg-card p-6 text-center shadow-card cursor-pointer hover:shadow-lg shadow-red-500 transition-all duration-300 ease-in-out hover:-translate-y-3"
                 >
                   <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
                     <value.icon className="h-7 w-7 text-primary" />

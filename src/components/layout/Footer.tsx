@@ -120,7 +120,7 @@ const Footer: React.FC = () => {
         <div className="mt-12 border-t border-background/20 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-background/60">
-              © {new Date().getFullYear()} {isRTL ? 'بيكيو' : 'Pickio'}. {t('footer.rights')}
+              © {new Date().getFullYear()} Pic<span className='text-red-500'>k</span>io. {t('footer.rights')}
             </p>
             <div className="flex gap-6 text-sm text-background/60">
               <Link to="/privacy" className="hover:text-background">
