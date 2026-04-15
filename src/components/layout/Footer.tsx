@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
                 <span>{t('footer.address')}</span>
               </div> 
               </a>
-               <a href="tel:+1234567890" >
+               <a href="tel:+201016434958" >
               <div  style={{marginTop:"15px"}}  className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
             
                 <Phone className="h-5 w-5 flex-shrink-0" />
