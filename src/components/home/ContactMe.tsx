@@ -63,7 +63,7 @@ export default function ContactMe() {
             {/* زرار */}
             <button
               type="submit"
-              className="w-full bg-white border border-red-600 py-3 rounded-full font-bold hover:bg-red-600 hover:text-white transition flex items-center justify-center gap-2"
+              className="w-full bg-white border border-red-600 py-3 rounded-full font-bold transition-all duration-300 ease-in-out  hover:bg-red-600 hover:text-white hover:-translate-y-2 transition flex items-center justify-center gap-2"
             >
               ارسال رسالة <SendIcon />
             </button>
@@ -101,7 +101,7 @@ export default function ContactMe() {
             },
           ].map((item, i) => (
             <a key={i} href={item.link}>
-              <div className="flex justify-between items-center gap-4 cursor-pointer bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition hover:-translate-x-2 border border-transparent hover:border-red-400">
+              <div className="flex justify-between items-center gap-4 cursor-pointer bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition transition-all duration-300 ease-in-out hover:-translate-x-2 border border-transparent hover:border-red-400">
                 
                 <div className="text-right">
                   <h1 className="text-gray-500 text-sm">

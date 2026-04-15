@@ -9,6 +9,9 @@ import HeroPageSilder from '@/components/home/HeroPageSilder';
 import ContactMe from '@/components/home/ContactMe';
 import Customers from '@/components/home/Customers';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
+import Aboutinhome from '@/components/home/Aboutinhome';
+import Whywe from '@/components/home/Whywe';
+import ReviewsSection from '@/components/home/Reviews ';
 
 const Index: React.FC = () => {
   return (
@@ -18,10 +21,13 @@ const Index: React.FC = () => {
        
         <HeroPageSilder />
         <CategoriesSection />
+        <Aboutinhome />
         <FeaturedProducts />
-        {/* <Newsletter /> */}
+     <Whywe />
         <ContactMe />
+     <ReviewsSection /> 
         <Customers />
+        
       </main>
       <FloatingWhatsApp />
       <Footer />
