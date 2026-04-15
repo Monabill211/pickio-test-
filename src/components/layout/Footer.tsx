@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
                 
               </div></a>
 
-               <a href="tel:+1234567890"  >
+               <a href="mailto:pickiofurniture@gmail.com"  >
               <div  style={{marginTop:"15px"}}  className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
                 <Mail className="h-5 w-5 flex-shrink-0" />
                 <span>{t('footer.email')}</span>

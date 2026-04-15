@@ -6,6 +6,12 @@
 
 @layer base {
   :root {
+      --swiper-pagination-color: #ef4444; /* لون النقط */
+  --swiper-pagination-bullet-inactive-color: #999;
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  
+  --swiper-navigation-color: #ef4444; /* أحمر */
+ --swiper-navigation-size: 30px;
     /* Warm Sand & Terracotta Furniture Theme */
     --background: 40 33% 98%;
     --foreground: 220 20% 15%;
