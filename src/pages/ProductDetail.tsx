@@ -361,7 +361,7 @@ const ProductDetail: React.FC = () => {
                   "font-medium text-sm",
                   displayProduct.inStock ? "text-green-600" : "text-destructive"
                 )}>
-                  {displayProduct.inStock ? t('common.inStock') : t('common.outOfStock')}
+                  {displayProduct.inStock ? t('common.inStock') : isRTL? ' ينتج حسب الطلب ': 'Made to order'}
                 </p>
               </div>
 
@@ -434,7 +434,7 @@ const ProductDetail: React.FC = () => {
                 <Button
                   size="lg"
                   className="flex-1 gap-2"
-                  disabled={!displayProduct.inStock}
+                  // disabled={!displayProduct.inStock}
                   onClick={handleAddToCart}
                 >
                   <ShoppingCart className="h-5 w-5" />
@@ -477,7 +477,7 @@ const ProductDetail: React.FC = () => {
                   </p>
                   <p className="font-semibold text-foreground capitalize">
                     {/* Show category name if available */}
-                    {product.categoryName ? product.categoryName : displayProduct.category}
+                    {product.category ? product.category : displayProduct.category}
                   </p>
                 </div>
                 <div>

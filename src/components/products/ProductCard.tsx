@@ -203,13 +203,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
           )}
 
           {/* Out of Stock Overlay */}
-          {!product.inStock && (
+          {/* {!product.inStock && (
             <div className="absolute inset-0 flex items-center justify-center bg-background/60 z-10">
               <span className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background">
                 {t('common.outOfStock')}
               </span>
             </div>
-          )}
+          )} */}
 
           {/* Hover Actions */}
           <motion.div
@@ -346,11 +346,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
 )}
 
           {/* Stock Status */}
-          {product.inStock && (
-            <p className="mt-2 text-xs font-medium text-green-600">
-              {t('common.inStock')}
-            </p>
-          )}
+        
+           <p
+  className={cn(
+    "mt-2 text-xs font-medium",
+    product.inStock ? "text-green-600" : "text-red-600"
+  )}
+>
+  {product.inStock
+    ? t('common.inStock')
+    : isRTL
+      ? 'ينتج حسب الطلب   '
+      : 'Made to order'}
+</p>
+         
         </div>
       </div>
     </motion.div>
