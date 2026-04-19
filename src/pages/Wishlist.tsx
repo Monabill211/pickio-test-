@@ -39,18 +39,20 @@ const Wishlist: React.FC = () => {
   // Convert Firebase products to display format and filter by wishlist
   const wishlistItems = allProducts
     .filter(product => wishlistIds.includes(String(product.id)))
-    .map(product => ({
-      ...product,
-      name: {
-        ar: product.name_ar || '',
-        en: product.name_en || '',
-      },
-      description: {
-        ar: product.description_ar || '',
-        en: product.description_en || '',
-      },
-      image: product.images?.[0] || '',
-    }));
+   .map(product => ({
+  ...product,
+  price: Number(product.price) || 0,
+  originalPrice: Number(product.originalPrice) || 0,
+  name: {
+    ar: product.name_ar || '',
+    en: product.name_en || '',
+  },
+  description: {
+    ar: product.description_ar || '',
+    en: product.description_en || '',
+  },
+  image: product.images?.[0] || '',
+}))
 
   const handleRemoveFromWishlist = (id: string) => {
     const savedWishlist = localStorage.getItem('wishlist');
@@ -69,6 +71,7 @@ const Wishlist: React.FC = () => {
       id: product.id,
       name: product.name,
       price: product.price,
+      originalPrice: product.originalPrice,
       image: product.image,
       quantity: 1,
     };
@@ -226,13 +229,13 @@ const Wishlist: React.FC = () => {
                   {/* Price */}
                   <div className="flex items-center gap-2 mb-4">
                     <span className="text-lg font-bold text-primary">
-                      {formatPrice(product.price)}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
-                        {formatPrice(product.originalPrice)}
-                      </span>
-                    )}
+                      {formatPrice(product.discountPrice || product.price)}
+                              </span>
+                    {product.price && (
+                                <span className="text-sm text-muted-foreground line-through">
+                                  {formatPrice(product.price)}
+                                </span>
+                              )}
                   </div>
 
                   {/* Stock Status */}

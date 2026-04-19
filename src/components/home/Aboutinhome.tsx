@@ -27,7 +27,7 @@ export default function Aboutinhome() {
             <img src="/src/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg" alt="" className=''style={{height:"450px"}} />
         </div>
         <div className='text-start text-'>
-            <h1 className='text-4xl text-center font-black'>عن Pic<span className='text-red-500'>k</span>io</h1>
+            <h1 className='text-4xl font-black' style={{marginRight:'30%'}}>عن Pic<span className='text-red-500'>k</span>io</h1>
             <p className='text-lg leading-relaxed ' style={{padding:"45px"}}> نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية <br></br> تبدأ من تفاصيل المكان.بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة،  <br/>ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا،<br/>  لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل.
 </p>
 <Link to="/about">

@@ -93,7 +93,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
     const cartItem = {
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: product.originalPrice,
       image: product.image,
       quantity: 1,
     };
