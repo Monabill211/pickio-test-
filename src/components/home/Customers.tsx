@@ -26,8 +26,8 @@ export default function Customers() {
         </p>
       </div>
 
-      {/* 🔥 wrapper يمنع overflow */}
-      <div className="overflow-hidden rounded-2xl">
+      {/* 🔥 wrapper يتحكم في overflow */}
+      <div className="overflow-hidden md:overflow-visible rounded-2xl">
         
         <Swiper
           effect="cards"
@@ -41,16 +41,19 @@ export default function Customers() {
         >
           {slides.map((img, i) => (
             <SwiperSlide key={i} className="rounded-2xl overflow-hidden">
+              
               <div className="relative w-full h-full">
                 
                 <img
                   src={img}
                   className="w-full h-full object-cover"
-                  alt=""
+                  alt={`slide-${i}`}
                 />
 
+                {/* overlay */}
                 <div className="absolute inset-0 bg-black/30" />
               </div>
+
             </SwiperSlide>
           ))}
         </Swiper>
