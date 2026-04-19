@@ -38,7 +38,7 @@ export default function Customers() {
           disableOnInteraction: false,
         }}
         modules={[EffectCards, Autoplay]}
-        className="w-[250px] h-[350px] md:w-[300px] md:h-[400px]"
+        className="w-[250px] h-[350px] md:w-[300px] md:h-[400px] overflow-hidden"
       >
         {slides.map((img, i) => (
           <SwiperSlide key={i} className="rounded-2xl overflow-hidden">
