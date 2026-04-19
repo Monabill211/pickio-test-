@@ -291,11 +291,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
           {/* Price */}
           <div className="mt-3 flex items-center gap-2">
             <span className="text-lg font-bold text-red-500">
-              {formatPrice(product.price)}
+              {formatPrice(product.originalPrice)}
             </span>
             {product.originalPrice && (
               <span className="text-sm text-muted-foreground line-through">
-                {formatPrice(product.originalPrice)}
+                {formatPrice(product.price)}
               </span>
             )}
             {product.originalPrice && (

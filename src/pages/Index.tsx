@@ -26,7 +26,7 @@ const Index: React.FC = () => {
      <Whywe />
         <ContactMe />
      <ReviewsSection /> 
-        <Customers />
+        {/* <Customers /> */}
         
       </main>
       <FloatingWhatsApp />
