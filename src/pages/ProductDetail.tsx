@@ -336,15 +336,15 @@ const ProductDetail: React.FC = () => {
               {/* Price */}
               <div className="mb-6 flex items-center gap-3">
                 <span className="text-3xl font-bold text-primary">
-                  {formatPrice(displayProduct.price)}
+                  {formatPrice(displayProduct.originalPrice)}
                 </span>
-                {product.originalPrice && (
+                {product.price && (
                   <>
                     <span className="text-lg text-muted-foreground line-through">
-                      {formatPrice(product.originalPrice)}
+                      {formatPrice(product.price)}
                     </span>
                     <Badge variant="destructive">
-                      -{displayProduct.originalPrice ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.originalPrice) * 100) : 0}%
+                      -{displayProduct.originalPrice ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.price) * 100) : 0}%
                     </Badge>
                   </>
                 )}

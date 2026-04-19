@@ -41,6 +41,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
   const navigate = useNavigate();
+    const [selectedColor, setSelectedColor] = useState('');
+  
   
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -310,26 +312,38 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
           </div>
 
           {/* Colors */}
-          {product.colors && product.colors.length > 0 && (
-            <div className="mt-3 flex gap-1">
-              {product.colors.slice(0, 4).map((color, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.2 }}
-                  className="h-4 w-4 rounded-full border border-border cursor-pointer transition-all hover:border-primary"
-                  style={{
-                    backgroundColor: getColorValue(color),
-                  }}
-                  title={color}
-                />
-              ))}
-              {product.colors.length > 4 && (
-                <span className="text-xs text-muted-foreground ml-1">
-                  +{product.colors.length - 4}
-                </span>
-              )}
-            </div>
+             {product.colors && product.colors.length > 0 && (
+  <div className="mt-3 flex gap-2 items-center">
+    {product.colors.map((color) => {
+      let colorValue = color;
+
+      if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) {
+        colorValue = color;
+      } else if (/^[A-Za-z]+$/.test(color)) {
+        colorValue = getColorValue(color);
+      } else {
+        colorValue = '#E5E5E5';
+      }
+
+      return (
+        <span
+          key={color}
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedColor(color);
+          }}
+          className={cn(
+            "h-6 w-6 rounded-full border cursor-pointer transition-all",
+            selectedColor === color
+              ? "ring-2 ring-primary scale-110"
+              : "hover:scale-110"
           )}
+          style={{ backgroundColor: colorValue }}
+        />
+      );
+    })}
+  </div>
+)}
 
           {/* Stock Status */}
           {product.inStock && (
