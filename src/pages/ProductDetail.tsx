@@ -14,6 +14,7 @@ import { getProductById, getProducts } from '@/services/productService';
 import { formatPrice } from '@/utils/formatPrice';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { Helmet } from 'react-helmet-async';
 
 const ProductDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -95,7 +96,27 @@ const ProductDetail: React.FC = () => {
   // Early returns after all hooks
   if (isLoading) {
     return (
+      
       <div className="flex min-h-screen flex-col">
+ {displayProduct && (
+  <Helmet>
+    <title>
+      {displayProduct.name[language]} | أثاث مكتبي فاخر
+    </title>
+
+    <meta
+      name="description"
+      content={(displayProduct.description[language] || "").substring(0, 150)}
+    />
+
+    <meta property="og:title" content={displayProduct.name[language]} />
+    <meta
+      property="og:description"
+      content={(displayProduct.description[language] || "").substring(0, 150)}
+    />
+    <meta property="og:image" content={displayProduct.image} />
+  </Helmet>
+)}
         <Header />
         <main className="flex-1 flex items-center justify-center py-12">
           <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
@@ -108,6 +129,8 @@ const ProductDetail: React.FC = () => {
   if (!product || !displayProduct) {
     return (
       <div className="flex min-h-screen flex-col">
+        
+
         <Header />
         <main className="flex-1 flex items-center justify-center py-12">
           <div className="text-center max-w-md">
@@ -209,6 +232,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+
       <Header />
       <main className="flex-1 py-8 md:py-12">
         <div className="container">

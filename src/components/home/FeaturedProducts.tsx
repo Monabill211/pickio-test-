@@ -46,10 +46,10 @@ const FeaturedProducts: React.FC = () => {
               {t('featured.subtitle')}
             </motion.p>
           </div>
-          <Button asChild variant="outline" className="gap-2">
+          <Button asChild variant="outline" className="gap-2 hover:bg-red-200">
             <Link to="/shop">
               {t('common.viewAll')}
-              <ArrowIcon className="h-4 w-4" />
+              <ArrowIcon className="h-4 w-4 " />
             </Link>
           </Button>
         </div>
