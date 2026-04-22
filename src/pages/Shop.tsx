@@ -262,7 +262,7 @@ const Shop: React.FC = () => {
         <Button className="flex-1">
           {isRTL ? 'تطبيق الفلاتر' : 'Apply Filters'}
         </Button>
-        <Button variant="outline" onClick={resetFilters}>
+        <Button variant="outline" className='hover:bg-red-200' onClick={resetFilters}>
           {isRTL ? 'إعادة تعيين' : 'Reset'}
         </Button>
       </div>
@@ -376,28 +376,29 @@ const Shop: React.FC = () => {
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder={isRTL ? 'ترتيب حسب' : 'Sort by'} />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="newest">{isRTL ? 'الأحدث' : 'Newest'}</SelectItem>
-                      <SelectItem value="price-low">{isRTL ? 'السعر: من الأقل للأعلى' : 'Price: Low to High'}</SelectItem>
-                      <SelectItem value="price-high">{isRTL ? 'السعر: من الأعلى للأقل' : 'Price: High to Low'}</SelectItem>
-                      <SelectItem value="popular">{isRTL ? 'الأكثر شعبية' : 'Most Popular'}</SelectItem>
+                    <SelectContent >
+                      <SelectItem className='hover:bg-red-200' value="newest">{isRTL ? 'الأحدث' : 'Newest'}</SelectItem>
+                      <SelectItem className='hover:bg-red-200'  value="price-low">{isRTL ? 'السعر: من الأقل للأعلى' : 'Price: Low to High'}</SelectItem>
+                      <SelectItem className='hover:bg-red-200' value="price-high">{isRTL ? 'السعر: من الأعلى للأقل' : 'Price: High to Low'}</SelectItem>
+                      <SelectItem className='hover:bg-red-200' value="popular">{isRTL ? 'الأكثر شعبية' : 'Most Popular'}</SelectItem>
                     </SelectContent>
                   </Select>
 
                   {/* View Toggle */}
-                  <div className="hidden items-center gap-1 rounded-lg bg-muted p-1 sm:flex">
+                  <div className="hidden items-center gap-1 rounded-lg bg-muted p-1 sm:flex ">
                     <Button
                       variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-8 w-8"
+                      className="h-8 w-8 hover:bg-red-200"
                       onClick={() => setViewMode('grid')}
+
                     >
                       <Grid3X3 className="h-4 w-4" />
                     </Button>
                     <Button
                       variant={viewMode === 'list' ? 'secondary' : 'ghost'}
                       size="icon"
-                      className="h-8 w-8"
+                      className="h-8 w-8 hover:bg-red-200"
                       onClick={() => setViewMode('list')}
                     >
                       <List className="h-4 w-4" />
@@ -470,7 +471,7 @@ const Shop: React.FC = () => {
                       animate={{ opacity: 1, y: 0 }}
                       className="mt-12 text-center"
                     >
-                      <Button variant="outline" size="lg" onClick={handleLoadMore}>
+                      <Button variant="outline" size="lg" className='hover:bg-red-200' onClick={handleLoadMore}>
                         {isRTL ? 'تحميل المزيد' : 'Load More'}
                       </Button>
                     </motion.div>

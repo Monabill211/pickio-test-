@@ -188,7 +188,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
         <div className="relative aspect-square overflow-hidden bg-muted">
           <img
             src={product.image}
-            alt={product.name[language]}
+            alt={product.name[language] }
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
 
@@ -302,9 +302,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
             )}
             {product.originalPrice && (
               <span className="text-xs font-semibold text-destructive">
-                -
+                
                 {Math.round(
-                  ((product.originalPrice - product.price) / product.originalPrice) * 100
+                  ((product.originalPrice - product.price) / product.price) * 100
                 )}
                 %
               </span>

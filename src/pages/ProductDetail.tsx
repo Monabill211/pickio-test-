@@ -291,7 +291,7 @@ const ProductDetail: React.FC = () => {
                     >
                       <img
                         src={img}
-                        alt={`${displayProduct.name[language]} - ${idx + 1}`}
+                        alt={product.name_ar || product.name_en}
                         className="h-full w-full object-cover"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = '/placeholder.svg';
@@ -344,7 +344,7 @@ const ProductDetail: React.FC = () => {
                       {formatPrice(product.price)}
                     </span>
                     <Badge variant="destructive">
-                      -{displayProduct.originalPrice ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.price) * 100) : 0}%
+                      {displayProduct.originalPrice ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.price) * 100) : 0}%
                     </Badge>
                   </>
                 )}
@@ -434,7 +434,6 @@ const ProductDetail: React.FC = () => {
                 <Button
                   size="lg"
                   className="flex-1 gap-2"
-                  // disabled={!displayProduct.inStock}
                   onClick={handleAddToCart}
                 >
                   <ShoppingCart className="h-5 w-5" />
@@ -447,8 +446,8 @@ const ProductDetail: React.FC = () => {
                   variant="outline"
                   onClick={handleToggleWishlist}
                   className={cn(
-                    "transition-all",
-                    isWishlisted && "bg-primary/10 text-primary border-primary"
+                    "transition-all hover:bg-red-300",
+                    isWishlisted && "bg-primary/10 text-primary border-primary "
                   )}
                   aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                 >
@@ -460,7 +459,7 @@ const ProductDetail: React.FC = () => {
                   />
                 </Button>
 
-                <Button size="lg" variant="outline" aria-label="Share product">
+                <Button size="lg" variant="outline" aria-label="Share product" className='hover:bg-red-300'>
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
@@ -469,7 +468,9 @@ const ProductDetail: React.FC = () => {
               <div className="grid gap-4 md:grid-cols-2 rounded-lg border border-border p-4 bg-muted/50">
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 font-medium">SKU</p>
-                  <p className="font-semibold text-foreground">{product.id}</p>
+                  <p className="font-semibold text-foreground">
+                    {product.name_ar ? (isRTL ? product.name_ar : product.name_en) : '-'}
+                    </p>  
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 font-medium">
@@ -477,7 +478,7 @@ const ProductDetail: React.FC = () => {
                   </p>
                   <p className="font-semibold text-foreground capitalize">
                     {/* Show category name if available */}
-                    {product.category ? product.category : displayProduct.category}
+                    {product.categoryId ? (isRTL ? product.categoryId || product.categoryId : product.categoryId || product.categoryId) : '-'}
                   </p>
                 </div>
                 <div>
@@ -601,7 +602,7 @@ const ProductDetail: React.FC = () => {
                       {relProduct.name[language]}
                     </h3>
                     <p className="text-primary font-bold mt-1">
-                      {formatPrice(relProduct.price)}
+                      {formatPrice(relProduct.originalPrice)}
                     </p>
                   </motion.button>
                 ))}
