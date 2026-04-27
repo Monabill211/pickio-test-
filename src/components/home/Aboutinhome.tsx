@@ -40,7 +40,7 @@ export default function Aboutinhome() {
       </div>
       <div className='flex  flex-wrap  justify-between flex-col md:flex-row gap-5 bg-gray-200 'style={{paddingTop:'20px'}}>
         <div className='w-550px '>
-            <img src="/src/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg" alt="" className=''style={{height:"450px"}} />
+            <img src="@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg" alt="" className=''style={{height:"450px"}} />
         </div>
         <div className='text-start text-'>
             <h1 className='text-4xl font-black flex justify-center items-center' >Pic<span className='text-red-500'>k</span>io</h1>
