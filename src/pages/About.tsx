@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import heroImage from '@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg';
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 
 const About: React.FC = () => {
   const { t } = useTranslation();
@@ -182,6 +183,8 @@ const About: React.FC = () => {
           </div>
         </section>
       </main>
+      <FloatingWhatsApp />  
+      
       <Footer />
     </div>
   );

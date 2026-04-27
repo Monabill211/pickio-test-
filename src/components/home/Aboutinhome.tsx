@@ -38,13 +38,20 @@ export default function Aboutinhome() {
            </h6>      
         </div>
       </div>
-      <div className='flex  flex-wrap  justify-between flex-col md:flex-row gap-5 bg-gray-200 'style={{paddingTop:'20px'}}>
+      <div className='flex  flex-wrap  justify-between flex-col md:flex-row gap-5 bg-gray-200 'style={{padding:'10px'}}>
         <div className='w-550px '>
             <img src="/src/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg" alt="" className=''style={{height:"450px"}} />
         </div>
-        <div className='text-start text-'>
-            <h1 className='text-4xl font-black flex justify-center items-center flex-row-reverse' >Pic<span className='text-red-500'>k</span>io</h1>
-            <p className='text-lg leading-relaxed w-400px md:w-[650px]' style={{padding:"45px"}}>
+        <div className='text-start'>
+            <h1 className='text-4xl font-black flex justify-center items-center flex-row-reverse' >
+  <div>
+                  Pic<span className='text-red-500'>k</span>io   
+              </div>
+              {isRTL ?  '   من هم    ' : ' Who are they? '}
+            
+              
+              </h1>
+            <p className='text-lg leading-relaxed w-400px md:w-[630px]' style={{padding:"45px"}}>
                                     {isRTL ? '               نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية  تبدأ من تفاصيل المكان.بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة، ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا،  لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل. ' : ' We are a company specializing in the design and manufacture of modern office furniture, as we believe that a strong work environment starts with the details of the space. Our journey began with a small workshop based on passion and quality, and then we developed through marketing and continuous work until we were able to establish our first showroom, to get closer to our customers and better understand their needs.  '}
 
 </p>

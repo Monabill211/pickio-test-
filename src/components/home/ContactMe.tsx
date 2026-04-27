@@ -9,6 +9,11 @@ import Inputphone from "@/assets/inputs/Inputphone";
 import InputName from "@/assets/inputs/InputName";
 
 export default function ContactMe() {
+  const [formData, setFormData] = useState({
+  name: '',
+  phone: '',
+  message: '',
+});
    const { language, isRTL } = useLanguage();
   return (
     <div id="contact" className="px-4 md:px-10 py-10">

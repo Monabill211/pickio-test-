@@ -515,7 +515,8 @@ const Contact: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </main><FloatingWhatsApp />
+      </main>
+      <FloatingWhatsApp />
       <Footer />
     </div>
   );

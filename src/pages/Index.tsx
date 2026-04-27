@@ -27,7 +27,6 @@ const Index: React.FC = () => {
         <ContactMe />
      <ReviewsSection /> 
         <Customers />
-        
       </main>
       <FloatingWhatsApp />
       <Footer />
