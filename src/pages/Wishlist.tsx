@@ -11,6 +11,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { formatPrice } from '@/utils/formatPrice';
 import { cn } from '@/lib/utils';
 import { getProducts } from '@/services/productService';
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 
 const Wishlist: React.FC = () => {
   const { t } = useTranslation();
@@ -293,7 +294,8 @@ const Wishlist: React.FC = () => {
             </Button>
           </motion.div>
         </div>
-      </main>
+      </main><FloatingWhatsApp />
+   
       <Footer />
     </div>
   );

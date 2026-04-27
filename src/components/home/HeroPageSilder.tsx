@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
-
-// styles
+import { useLanguage } from '@/contexts/LanguageContext';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -10,33 +9,35 @@ import heroImagedesk from '@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0
 import heroImagemeeting from '@/assets/1775992329728_Bespoke_02_2.jpg';
 import heroImagehome from '@/assets/hero-living-room.jpg';
 
-const slides = [
-  {
-    img: heroImagedesk,
-    title: "هل تريد اثاث مكتبي مميز؟",
-  desc: (
-  <>
-    مرحبا بك في Pic<span className="text-red-500">k</span>io
-  </>
+// const slides = [
+//   {
+//     img: heroImagedesk,
+//     title: "هل تريد اثاث مكتبي مميز؟",
+//   desc: (
+//   <>
+//     مرحبا بك في Pic<span className="text-red-500">k</span>io
+//   </>
 
-),
-link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
-  },
-  {
-    img:heroImagemeeting ,
-    title: "هل يوجد طربيزات اجتماعات ",
-    desc: "لدينا كل ما تحتاجه من اثاث مكتبي",
-    link: "/shop?category=8moIbcIcWaf5CdbJeiRf",
-  },
-  {
-    img: heroImagehome,
-    title: "هل تبحث عن اثاث منزلي مميز؟",
-    desc: " يوجد لدينا كل ما تحتاجه من المكتبي الي الاثاث منزلي",
-    link: "/shop?category=kwRwXDl27eyzAS2pWl4S",
-  },
-];
+// ),
+// link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
+//   },
+//   {
+//     img:heroImagemeeting ,
+//     title: "هل يوجد طربيزات اجتماعات ",
+//     desc: "لدينا كل ما تحتاجه من اثاث مكتبي",
+//     link: "/shop?category=8moIbcIcWaf5CdbJeiRf",
+//   },
+//   {
+//     img: heroImagehome,
+//     title: "هل تبحث عن اثاث منزلي مميز؟",
+//     desc: " يوجد لدينا كل ما تحتاجه من المكتبي الي الاثاث منزلي",
+//     link: "/shop?category=kwRwXDl27eyzAS2pWl4S",
+//   },
+// ];
 
 export default function HeroPageSilder() {
+        const { language, isRTL } = useLanguage();
+  
   return (
     <div className="w-full h-screen">
       <Swiper
@@ -51,7 +52,33 @@ export default function HeroPageSilder() {
         modules={[Pagination, Navigation, Autoplay]}
         className="h-full"
       >
-        {slides.map((slide, i) => (
+        {[
+  {
+    img: heroImagedesk,
+    title: isRTL ? 'هل تريد اثاث مكتبي مميز ؟' : 'Do you want distinctive office furniture?',
+  desc: (
+  <>
+ {isRTL ? 'مرحبا بك في ' : 'Welcome to '}
+ 
+    Pic<span className="text-red-500">k</span>io
+  </>
+
+),
+link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
+  },
+  {
+    img:heroImagemeeting ,
+    title: isRTL ? 'هل يوجد طربيزات اجتماعات ' : 'Are there meeting tables available ? ',
+    desc: isRTL ? 'لدينا كل ما تحتاجه من اثاث مكتبي' : ' We have everything you need in office furniture. ',
+    link: "/shop?category=8moIbcIcWaf5CdbJeiRf",
+  },
+  {
+    img: heroImagehome,
+    title: isRTL ? ' هل تبحث عن اثاث منزلي مميز ؟' : 'Are you looking for distinctive home furniture ?',
+    desc: isRTL ? '  يوجد لدينا كل ما تحتاجه من المكتبي الي الاثاث منزلي ' : 'We have everything you need, from office supplies to home furniture. ',
+    link: "/shop?category=kwRwXDl27eyzAS2pWl4S",
+  },
+].map((slide, i) => (
           <SwiperSlide key={i}>
             <div className="relative w-full h-screen">
               
@@ -76,7 +103,8 @@ export default function HeroPageSilder() {
 <Link to={slide.link}>
 
                 <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-                 اشتري الان
+                  {isRTL ? ' اشتري الان' : '  Buy now '}
+                
                 </button>
                 </Link>
               </div>

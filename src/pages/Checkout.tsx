@@ -16,7 +16,7 @@ import { useUserAuth } from '@/contexts/UserAuthContext';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { useQueryClient } from '@tanstack/react-query';
-
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 interface CartItem {
   id: string;
   name: { [key: string]: string };
@@ -521,7 +521,7 @@ const Checkout: React.FC = () => {
             </div>
           </form>
         </div>
-      </main>
+      </main><FloatingWhatsApp />
       <Footer />
     </div>
   );

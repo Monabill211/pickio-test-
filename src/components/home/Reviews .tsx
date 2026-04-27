@@ -1,44 +1,46 @@
 import React from "react";
-
-const reviews = [
-  {
-    name: "Ahmed Ali",
-    company: "Vodafone",
-    review: "خدمة ممتازة وجودة عالية جدًا في الأثاث ",
-    rating: 5,
-  },
-  {
-    name: "Mohamed Salah",
-    company: "Orange",
-    review: "التصميمات فخمة والتسليم كان في المعاد ",
-    rating: 4,
-  },
-  {
-    name: "Omar Khaled",
-    company: "Etisalat",
-    review: "تجربة رائعة وأنصح أي شركة تتعامل معاهم ",
-    rating: 5,
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ReviewsSection() {
+  const { language, isRTL } = useLanguage();
+
   return (
     <div className="py-20 px-4 bg-gray-50">
-      
-      {/* Title */}
+
       <div className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-red-500">
-          آراء عملائنا
+            {isRTL ? '    آراء عملائنا' : 'Our customers opinions'}
+      
         </h1>
         <p className="text-gray-500 mt-2">
-          شوف الناس بتقول ايه عن Pic<span className="text-red-500">k</span>io
+            {isRTL ? 'شوف الناس بتقول ايه عن' : 'See what people are saying about'}
+        Pic<span className="text-red-500">k</span>io
         </p>
       </div>
 
       {/* Cards */}
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
         
-        {reviews.map((item, i) => (
+        {[
+  {
+    name: "Ahmed Ali",
+    company: "Vodafone",
+    review: isRTL ? 'خدمة ممتازة وجودة عالية جدًا في الأثاث ' : 'Excellent service and very high quality furniture',
+    rating: 5,
+  },
+  {
+    name: "Mohamed Salah",
+    company: "Orange",
+    review: isRTL ? ' التصميمات فخمة والتسليم كان في المعاد ' : 'The designs are luxurious and the delivery was on time.',
+    rating: 4,
+  },
+  {
+    name: "Omar Khaled",
+    company: "Etisalat",
+    review: isRTL ? ' تجربة رائعة وأنصح أي شركة تتعامل معاهم ' : 'A great experience, and I recommend them to any company.',
+    rating: 5,
+  },
+].map((item, i) => (
           <div
             key={i}
             className="relative bg-white p-6 rounded-2xl shadow-md overflow-hidden 
@@ -53,6 +55,7 @@ export default function ReviewsSection() {
 
             {/* ⭐ stars */}
             <div className="flex mb-3">
+
               {[...Array(5)].map((_, index) => (
                 <span
                   key={index}

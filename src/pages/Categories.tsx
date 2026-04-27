@@ -10,7 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Category } from '@/data/products';
 import { getCategories, subscribeToCategories } from '@/services/categoryService';
 import { getProducts } from '@/services/productService';
-
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 const Categories: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
@@ -190,7 +190,7 @@ const Categories: React.FC = () => {
 
         </div>
       </main>
-
+<FloatingWhatsApp />
       <Footer />
     </div>
   );

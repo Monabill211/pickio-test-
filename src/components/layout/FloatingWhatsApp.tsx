@@ -1,10 +1,12 @@
 import { useState } from "react";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 
 export default function FloatingWhatsApp() {
   const [showText, setShowText] = useState(true);
 
+        const { language, isRTL } = useLanguage();
  
 
   return (
@@ -13,7 +15,9 @@ export default function FloatingWhatsApp() {
     
       {showText && (
         <div className="bg-white text-black px-4 py-2 rounded-xl shadow-lg text-sm animate-bounce">
-         عايز مساعدة؟👋
+                            {isRTL ? 'عايز مساعدة ؟👋' : '  Need help? 👋  '}
+
+      
         </div>
       )}
 

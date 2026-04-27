@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { uploadImage } from '@/services/storageService';
 import { addContactMessage } from '@/services/contactService';
-
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 const Contact: React.FC = () => {
   const { t } = useTranslation();
   const { isRTL, language } = useLanguage();
@@ -515,7 +515,7 @@ const Contact: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </main>
+      </main><FloatingWhatsApp />
       <Footer />
     </div>
   );

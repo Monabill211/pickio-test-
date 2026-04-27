@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Autoplay } from "swiper/modules";
-
+import { useLanguage } from '@/contexts/LanguageContext';
 // styles
 import "swiper/css";
 import "swiper/css/effect-cards";
@@ -13,16 +13,19 @@ const slides = [
 ];
 
 export default function Customers() {
+     const { language, isRTL } = useLanguage();
   return (  
     <div className="flex flex-col items-center w-full py-10 px-4 gap-6 md:flex-row md:justify-center md:gap-16">
       
       {/* النص */}
       <div className="text-center max-w-md">
         <h1 className="text-2xl md:text-4xl text-red-600 font-bold mb-4">
-          اهم عملائنا في المجالات المختلفة
+             {isRTL ? 'اهم عملائنا في المجالات المختلفة' : 'Our most important clients in various fields'}
+        
         </h1>
         <p className="text-gray-600 text-sm md:text-lg">
-          و تم فرش الشركات من كل شيء
+             {isRTL ? ' و تم فرش الشركات من كل شيء' : 'The companies were furnished with everything'}
+         
         </p>
       </div>
 

@@ -19,7 +19,7 @@ import { cn } from '@/lib/utils';
 import { matchesSearch } from '@/utils/searchUtils';
 import { formatPrice } from '@/utils/formatPrice';
 import type { Product } from '@/services/productService';
-
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 const Shop: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
@@ -497,7 +497,7 @@ const Shop: React.FC = () => {
             </div>
           </div>
         </div>
-      </main>
+      </main><FloatingWhatsApp />
       <Footer />
     </div>
   );

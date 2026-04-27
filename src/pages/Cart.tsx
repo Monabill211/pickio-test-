@@ -11,7 +11,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { formatPrice } from '@/utils/formatPrice';
 import { getButtonRowClass, cnRtl } from '@/utils/rtlHelper';
 import { cn } from '@/lib/utils';
-
+import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 interface CartItem {
   id: string;
   name: { [key: string]: string };
@@ -326,7 +326,7 @@ const Cart: React.FC = () => {
             </motion.div>
           </div>
         </div>
-      </main>
+      </main><FloatingWhatsApp />
       <Footer />
     </div>
   );

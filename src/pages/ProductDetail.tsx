@@ -264,7 +264,7 @@ const ProductDetail: React.FC = () => {
                 <img
                   src={displayProduct.images?.[currentImageIndex] || displayProduct.image || '/placeholder.svg'}
                   alt={displayProduct.name[language]}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/placeholder.svg';
                   }}
@@ -635,6 +635,7 @@ const ProductDetail: React.FC = () => {
           )}
         </div>
       </main>
+      <FloatingWhatsApp />
       <Footer />
     </div>
   );
