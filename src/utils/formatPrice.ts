@@ -10,7 +10,7 @@ export const formatPrice = (price: number, currency: string = 'EGP'): string => 
   const formattedPrice = formatter.format(price);
   
   const currencySymbols: Record<string, string> = {
-    EGP: 'E£',
+    EGP: 'EGP',
     USD: '$',
     EUR: '€',
     SAR: 'SR',
