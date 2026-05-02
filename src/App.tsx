@@ -39,7 +39,6 @@ import AdminContent from "./pages/admin/AdminContent";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AddCategories from "./pages/admin/AddCategories";
 import AdminContactMessages from "./pages/admin/AdminContactMessages";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -55,8 +54,7 @@ const App = () => (
               {/* Public Routes */}
               <Route path="/" element={<Index />} />
               <Route path="/shop" element={<Shop />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/cart" element={<Cart />} />
+<Route path="/product/:id" element={<ProductDetail />} />           <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/login" element={<Login />} />

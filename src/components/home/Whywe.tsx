@@ -16,22 +16,19 @@ export default function Whywe() {
       <div className="bg-black/70 backdrop-blur-sm rounded-3xl p-6 md:p-10 max-w-2xl w-[90%] text-center shadow-xl">
         
         <h1 className="text-2xl md:text-3xl text-red-500 font-bold mb-3">
-            {isRTL ? '  لماذا تختارنا ؟' : 'Why choose us ?'}
+            {isRTL ? 'لماذا Pickio Office؟' : 'Why Pickio Office'}
         </h1>
 
-        <h2 className="text-base md:text-xl text-[#00bacf] mb-4">
-            {isRTL ? 'لماذا تختار ' : ' Why choose '}
-           Pic<span className='text-red-500'>k</span>io ?
-        </h2>
+    
 
         <div className="space-y-2 text-white text-sm md:text-lg font-medium">
           <p>
-            {isRTL ? '  لأن مكتبك يستحق الأفضل! ' : 'Because your office deserves the best!'}
+            {isRTL ? 'تصميمات تناسب الشركات الكبرى خامات عالية الجودة ' : 'Designs suitable for large companies, high-quality materials'}
             
           
             </p>
           <p>
-            {isRTL ? 'العلامة رقم 1 في الأثاث المكتبي' : 'The number 1 brand in office furniture'}
+            {isRTL ? 'تنفيذ احترافي وتسليم في المواعيد خبرة في تجهيز المشاريع الكبرى' : 'Professional execution and on-time delivery; experience in preparing large projects.'}
             
            </p>
           <p>

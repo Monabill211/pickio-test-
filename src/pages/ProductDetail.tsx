@@ -14,8 +14,9 @@ import { getProductById, getProducts } from '@/services/productService';
 import { formatPrice } from '@/utils/formatPrice';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-import { Helmet } from 'react-helmet-async';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
+import { getCategories } from '@/services/categoryService';
+
 
 const ProductDetail: React.FC = () => {
   const { t } = useTranslation();
@@ -56,7 +57,10 @@ const ProductDetail: React.FC = () => {
     colors: product.colors || [],
     materials: product.materials || [],
   } : null;
-
+const { data: categories = [] } = useQuery({
+  queryKey: ['categories'],
+  queryFn: getCategories,
+});
   // Fetch related products (must be before early returns)
   const { data: relatedProducts = [] } = useQuery({
     queryKey: ['relatedProducts', displayProduct?.category, id],
@@ -93,7 +97,9 @@ const ProductDetail: React.FC = () => {
       setSelectedColor(product.colors[0]);
     }
   }, [product]);
-
+const Category = categories.find(
+  (c) => c.id === displayProduct?.category
+);
   // Early returns after all hooks
   if (isLoading) {
     return (
@@ -111,9 +117,10 @@ const ProductDetail: React.FC = () => {
   if (!product || !displayProduct) {
     return (
       <div className="flex min-h-screen flex-col">
-        
+
 
         <Header />
+        
         <main className="flex-1 flex items-center justify-center py-12">
           <div className="text-center max-w-md">
             <h1 className="text-4xl font-bold text-foreground mb-4">
@@ -216,6 +223,7 @@ const ProductDetail: React.FC = () => {
     <div className="flex min-h-screen flex-col">
 
       <Header />
+
       <main className="flex-1 py-8 md:py-12">
         <div className="container">
           {/* Breadcrumb */}
@@ -482,10 +490,10 @@ const ProductDetail: React.FC = () => {
                   <p className="text-xs text-muted-foreground mb-1 font-medium">
                     {isRTL ? 'الفئة' : 'Category'}
                   </p>
+                
                   <p className="font-semibold text-foreground capitalize">
-                    {/* Show category name if available */}
-                    {product.categoryId ? (isRTL ? product.categoryId || product.categoryId : product.categoryId || product.categoryId) : '-'}
-                  </p>
+                    
+{Category ? Category.name[language] : '-'}                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 font-medium">

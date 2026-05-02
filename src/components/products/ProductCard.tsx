@@ -189,10 +189,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
           <img
             src={product.image}
             alt={product.name[language] }
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 object-top
-            
-            
-            "
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
 
           {/* Badge */}
@@ -370,3 +367,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
 };
 
 export default ProductCard;
+

@@ -32,12 +32,12 @@ export default function HeroPageSilder() {
         {[
   {
     img: heroImagedesk,
-    title: isRTL ? 'هل تريد اثاث مكتبي مميز ؟' : 'Do you want distinctive office furniture?',
+    title: isRTL ? 'أثاث مكتبي فاخر يصنع بيئة عمل احترافية' : 'Luxury office furniture creates a professional work environment.',
   desc: (
   <>
- {isRTL ? 'مرحبا بك في ' : 'Welcome to '}
+ {isRTL ? 'في Pickio Office نوفر حلول متكاملة لتجهيز المكاتب والشركات بأحدث التصميمات وجودة تناسب الشركات الكبرى. ' : 'Welcome to '}
  
-    Pic<span className="text-red-500">k</span>io
+    {/* Pic<span className="text-red-500">k</span>io */}
   </>
 
 ),

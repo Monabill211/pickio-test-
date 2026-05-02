@@ -22,7 +22,7 @@ export default function ContactMe() {
         </h1>
         <h2 className="text-lg md:text-2xl text-[#00bacf] mt-3">
          
-                    {isRTL ? '  نحن هنا لخدمتك تواصل معنا ولا تتردد' : 'We are here to serve you. Contact us without hesitation.'}
+                    {isRTL ? 'تواصل مع فريق Pickio Office للحصول على عرض سعر مخصص يناسب احتياجات شركتك.' : 'Contact the Pickio Office team for a customized quote that suits your company`s needs.'}
 
         </h2>
       </div>
