@@ -84,11 +84,7 @@ export default function ReviewsSection() {
 
       </div> */}
         <div>
-<img
-                  src= "https://picsum.photos/300/400?4"
-                  className="w-full h-full object-cover"
-                  alt={`slide-${i}`}
-                />        </div>
+<img src= "https://picsum.photos/300/400?4"/>        </div>
     </div>
   );
 }
