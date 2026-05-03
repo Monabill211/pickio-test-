@@ -19,7 +19,7 @@ export default function ReviewsSection() {
       </div>
 
       {/* Cards */}
-      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
+      {/* <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
         
         {[
   {
@@ -82,7 +82,8 @@ export default function ReviewsSection() {
           </div>
         ))}
 
-      </div>
+      </div> */}
+        <div><img src= "https://picsum.photos/300/400?4"/></div>
     </div>
   );
 }
