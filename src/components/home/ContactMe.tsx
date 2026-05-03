@@ -118,6 +118,12 @@ export default function ContactMe() {
               icon: <AddLocationAltIcon />,
               link: "https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D",
             },
+            {
+              title:  isRTL ? 'العنوان' : 'Address',
+              value: "  ٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر",
+              icon: <AddLocationAltIcon />,
+              link: "https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D",
+            },
           ].map((item, i) => (
             <a key={i} href={item.link}>
               <div className="flex justify-between items-center gap-4 cursor-pointer bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition transition-all duration-300 ease-in-out hover:-translate-x-2 border border-transparent hover:border-red-400">
