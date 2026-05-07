@@ -8,6 +8,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { getProducts } from '@/services/productService';
 import { matchesSearch } from '@/utils/searchUtils';
 import { formatPrice } from '@/utils/formatPrice';
+import { toSlugWithId } from '@/utils/slug';
 
 interface SearchSuggestion {
   id: string;
@@ -129,7 +130,7 @@ const SearchAutocomplete: React.FC<SearchAutocompleteProps> = ({
     onChange(suggestion.name);
     setIsOpen(false);
     setSelectedIndex(-1);
-    navigate(`/product/${suggestion.id}`);
+    navigate(`/product/${toSlugWithId(suggestion.name_en, suggestion.id)}`);
     onClose?.();
   };
 

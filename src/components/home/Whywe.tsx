@@ -12,7 +12,6 @@ export default function Whywe() {
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       
-      {/* Box */}
       <div className="bg-black/70 backdrop-blur-sm rounded-3xl p-6 md:p-10 max-w-2xl w-[90%] text-center shadow-xl">
         
         <h1 className="text-2xl md:text-3xl text-red-500 font-bold mb-3">

@@ -52,7 +52,10 @@ export default function Aboutinhome() {
               
               </h1>
             <p className='text-lg leading-relaxed w-400px md:w-[630px]' style={{padding:"45px"}}>
-                                    {isRTL ? '               نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية  تبدأ من تفاصيل المكان.بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة، ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا،  لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل. ' : ' We are a company specializing in the design and manufacture of modern office furniture, as we believe that a strong work environment starts with the details of the space. Our journey began with a small workshop based on passion and quality, and then we developed through marketing and continuous work until we were able to establish our first showroom, to get closer to our customers and better understand their needs.  '}
+{isRTL ? 'نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية  تبدأ من تفاصيل المكان.بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة، ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا،  لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل. ' : ' We are a company specializing in the design and manufacture of modern office furniture, as we believe that a strong work environment starts with the details of the space. Our journey began with a small workshop based on passion and quality, and then we developed through marketing and continuous work until we were able to establish our first showroom, to get closer to our customers and better understand their needs.  '}
+</p>
+            <p className='text-lg leading-relaxed w-400px md:w-[630px]' style={{padding:"45px"}}>
+              {isRTL ? 'نقدم خدماتنا في القاهرة وجميع أنحاء مصر، مع خبرة في تجهيز مكاتب الشركات في مدينة نصر، التجمع، والشيخ زايد، المعادي ، أكتوبر ، الإسكندرية ، الغردقة .' : ' We offer our services in Cairo and throughout Egypt, with expertise in equipping corporate offices in Nasr City, New Cairo, Sheikh Zayed, Maadi, 6th of October City, Alexandria, and Hurghada.  '}
 
 </p>
 <Link to="/about" className='flex justify-center items-center'>

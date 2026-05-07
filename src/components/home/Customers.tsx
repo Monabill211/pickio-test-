@@ -17,19 +17,15 @@ export default function Customers() {
   return (  
     <div className="flex flex-col items-center w-full py-10 px-4 gap-6 md:flex-row md:justify-center md:gap-16">
       
-      {/* النص */}
       <div className="text-center max-w-md">
         <h1 className="text-2xl md:text-4xl text-red-600 font-bold mb-4">
-             {isRTL ? 'اهم عملائنا في المجالات المختلفة' : 'Our most important clients in various fields'}
+             {isRTL ? 'نفذنا مجموعة من مشاريع تجهيز المكاتب لكبرى الشركات المصرية وخارج مصر عن طريق الشحن الدولي معايير الجودة والتصميم.' : 'We have completed a range of office outfitting projects for major Egyptian and international companies via international shipping, adhering to the highest standards of quality and design. '}
         
         </h1>
-        <p className="text-gray-600 text-sm md:text-lg">
-             {isRTL ? ' و تم فرش الشركات من كل شيء' : 'The companies were furnished with everything'}
-         
-        </p>
+       
+       
       </div>
 
-      {/* 🔥 wrapper يتحكم في overflow */}
       <div className="overflow-hidden md:overflow-visible rounded-2xl">
         
         <Swiper
@@ -53,7 +49,6 @@ export default function Customers() {
                   alt={`slide-${i}`}
                 />
 
-                {/* overlay */}
                 <div className="absolute inset-0 bg-black/30" />
               </div>
 

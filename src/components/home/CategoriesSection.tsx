@@ -97,7 +97,6 @@ const CategoriesSection: React.FC = () => {
                       index === 0 && "sm:col-span-2 lg:col-span-1"
                     )}
                   >
-                    {/* Image */}
                     <div className="relative aspect-square overflow-hidden">
                       <img
                         src={category.image || '/placeholder.svg'}
@@ -110,7 +109,6 @@ const CategoriesSection: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
                     </div>
 
-                    {/* Content */}
                     <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
                       <h3 className="text-lg font-semibold text-background md:text-xl">
                         {category.name[language]}

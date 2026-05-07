@@ -92,7 +92,8 @@ const Header: React.FC = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <span className="text-xl text-foreground md:text-2xl font-bold">
-           Pic<span className='text-red-600 '>k</span>io
+
+<img src="/src/assets/WhatsApp Image 2026-05-03 at 6.12.04 PM.png" alt="Pickio Logo" className="h-8 w-auto" />
           </span>
         </Link>
 

@@ -39,6 +39,7 @@ import AdminContent from "./pages/admin/AdminContent";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AddCategories from "./pages/admin/AddCategories";
 import AdminContactMessages from "./pages/admin/AdminContactMessages";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -50,47 +51,48 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Index />} />
-              <Route path="/shop" element={<Shop />} />
-<Route path="/product/:id" element={<ProductDetail />} />           <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/categories" element={<Categories />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/shipping" element={<ShippingDelivery />} />
-              <Route path="/returns" element={<ReturnsPolicy />} />
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Index />} />
+                <Route path="/shop" element={<Shop />} />
 
-              {/* Admin Routes - Login is public */}
-              <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/product/:slug" element={<ProductDetail />} />
 
-              {/* Protected Admin Routes */}
-              <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-              <Route path="/admin/products" element={<ProtectedRoute><AdminProducts /></ProtectedRoute>} />
-              <Route path="/admin/products/add" element={<ProtectedRoute><AdminProductForm /></ProtectedRoute>} />
-              <Route path="/admin/products/edit/:id" element={<ProtectedRoute><AdminProductForm /></ProtectedRoute>} />
-              <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
-              <Route path="/admin/orders" element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
-              <Route path="/admin/orders/:id" element={<ProtectedRoute><AdminOrderDetails /></ProtectedRoute>} />
-              <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
-              <Route path="/admin/users/:id" element={<ProtectedRoute><AdminUserProfile /></ProtectedRoute>} />
-              <Route path="/admin/content" element={<ProtectedRoute><AdminContent /></ProtectedRoute>} />
-              <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
-              <Route path="/admin/categories/add" element={<ProtectedRoute><AddCategories /></ProtectedRoute>} />
-              <Route path="/admin/contact-messages" element={<ProtectedRoute><AdminContactMessages /></ProtectedRoute>} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/categories" element={<Categories />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/shipping" element={<ShippingDelivery />} />
+                <Route path="/returns" element={<ReturnsPolicy />} />
 
-              {/* 404 Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </AdminAuthProvider>
+                {/* Admin Routes */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+                <Route path="/admin/products" element={<ProtectedRoute><AdminProducts /></ProtectedRoute>} />
+                <Route path="/admin/products/add" element={<ProtectedRoute><AdminProductForm /></ProtectedRoute>} />
+                <Route path="/admin/products/edit/:id" element={<ProtectedRoute><AdminProductForm /></ProtectedRoute>} />
+                <Route path="/admin/categories" element={<ProtectedRoute><AdminCategories /></ProtectedRoute>} />
+                <Route path="/admin/orders" element={<ProtectedRoute><AdminOrders /></ProtectedRoute>} />
+                <Route path="/admin/orders/:id" element={<ProtectedRoute><AdminOrderDetails /></ProtectedRoute>} />
+                <Route path="/admin/users" element={<ProtectedRoute><AdminUsers /></ProtectedRoute>} />
+                <Route path="/admin/users/:id" element={<ProtectedRoute><AdminUserProfile /></ProtectedRoute>} />
+                <Route path="/admin/content" element={<ProtectedRoute><AdminContent /></ProtectedRoute>} />
+                <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
+                <Route path="/admin/categories/add" element={<ProtectedRoute><AddCategories /></ProtectedRoute>} />
+                <Route path="/admin/contact-messages" element={<ProtectedRoute><AdminContactMessages /></ProtectedRoute>} />
+
+                {/* 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </AdminAuthProvider>
       </UserAuthProvider>
     </LanguageProvider>
   </QueryClientProvider>

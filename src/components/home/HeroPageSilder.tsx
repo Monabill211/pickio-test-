@@ -37,7 +37,6 @@ export default function HeroPageSilder() {
   <>
  {isRTL ? 'في Pickio Office نوفر حلول متكاملة لتجهيز المكاتب والشركات بأحدث التصميمات وجودة تناسب الشركات الكبرى. ' : 'Welcome to '}
  
-    {/* Pic<span className="text-red-500">k</span>io */}
   </>
 
 ),
@@ -59,17 +58,14 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
           <SwiperSlide key={i}>
             <div className="relative w-full h-screen">
               
-              {/* image */}
               <img
                 src={slide.img}
                 className="w-full h-full object-cover md:object-cover object-contain"
                 alt=""
               />
 
-              {/* overlay */}
               <div className="absolute inset-0 bg-black/50" />
 
-              {/* content */}
               <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
                   {slide.title}
@@ -77,6 +73,7 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
                 <h4 className="text-lg md:text-3xl text-gray-200 mb-6 max-w-xl">
                   {slide.desc}
                 </h4>
+                <div className="flex gap-5"> 
 <Link to={slide.link}>
 
                 <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
@@ -84,6 +81,14 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
                 
                 </button>
                 </Link>
+<Link to={'/contact'}>
+
+                <button className="bg-red-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-600 transition">
+                  {isRTL ? 'تواصل معانا' : '  Contact Us '}
+                
+                </button>
+                </Link>
+                </div>
               </div>
             </div>
           </SwiperSlide>

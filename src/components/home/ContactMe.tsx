@@ -14,7 +14,6 @@ export default function ContactMe() {
   return (
     <div id="contact" className="px-4 md:px-10 py-10">
       
-      {/* العنوان */}
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl text-red-600 font-bold">
           {isRTL ? 'تواصل معانا' : 'Contact Us '}
@@ -27,10 +26,8 @@ export default function ContactMe() {
         </h2>
       </div>
 
-      {/* المحتوى */}
       <div className="flex flex-col lg:flex-row gap-10 items-start justify-center">
         
-        {/* الفورم */}
         <div className="w-full max-w-lg bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-center font-black text-2xl md:text-3xl mb-6">
         
@@ -40,7 +37,6 @@ export default function ContactMe() {
 
           <form className="space-y-4">
             
-            {/* الاسم + رقم الهاتف */}
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="w-full">
                 <label className="block mb-1 font-medium">

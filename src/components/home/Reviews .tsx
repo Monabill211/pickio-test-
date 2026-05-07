@@ -18,7 +18,6 @@ export default function ReviewsSection() {
         </p>
       </div>
 
-      {/* Cards */}
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
         
         {[
@@ -47,13 +46,11 @@ export default function ReviewsSection() {
             transition-all duration-300 hover:-translate-y-2 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl group hover:shadow-[0_18px_40px_rgba(255,0,0,0.4)] transition"
           >
             
-            {/* ✨ light effect */}
             <div className="absolute top-0 left-0 w-0 h-0 
             group-hover:w-full group-hover:h-full 
             bg-gradient-to-br from-white/40 via-transparent to-transparent 
             transition-all duration-500 pointer-events-none"></div>
 
-            {/* ⭐ stars */}
             <div className="flex mb-3">
 
               {[...Array(5)].map((_, index) => (
@@ -68,12 +65,10 @@ export default function ReviewsSection() {
               ))}
             </div>
 
-            {/* 📝 review */}
             <p className="text-gray-600 mb-4 leading-relaxed">
               {item.review}
             </p>
 
-            {/* 👤 user */}
             <div className="mt-4">
               <h3 className="font-bold text-lg">{item.name}</h3>
               <p className="text-sm text-gray-400">{item.company}</p>

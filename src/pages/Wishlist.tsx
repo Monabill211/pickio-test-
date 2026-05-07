@@ -12,6 +12,7 @@ import { formatPrice } from '@/utils/formatPrice';
 import { cn } from '@/lib/utils';
 import { getProducts } from '@/services/productService';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
+import { toSlugWithId } from '@/utils/slug';
 
 const Wishlist: React.FC = () => {
   const { t } = useTranslation();
@@ -191,7 +192,7 @@ const Wishlist: React.FC = () => {
                     src={product.image || product.images?.[0] || ''}
                     alt={product.name?.[language] || product.name_ar || product.name_en || 'Product'}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    onClick={() => navigate(`/product/${product.id}`)}
+                    onClick={() => navigate(`/product/${toSlugWithId(product.name?.en || product.name_en || '', product.id)}`)}
                   />
 
                   {/* Remove Button */}
@@ -215,7 +216,7 @@ const Wishlist: React.FC = () => {
                 <div className="p-4">
                   {/* Name */}
                   <h3 className="font-semibold text-foreground line-clamp-2 mb-2 cursor-pointer hover:text-primary transition-colors"
-                    onClick={() => navigate(`/product/${product.id}`)}
+                    onClick={() => navigate(`/product/${toSlugWithId(product.name?.en || product.name_en || '', product.id)}`)}
                   >
                     {product.name?.[language] || (language === 'ar' ? product.name_ar : product.name_en) || 'Product'}
                   </h3>
@@ -265,7 +266,7 @@ const Wishlist: React.FC = () => {
                       </span>
                     </Button>
                     <Button
-                      onClick={() => navigate(`/product/${product.id}`)}
+                      onClick={() => navigate(`/product/${toSlugWithId(product.name?.en || product.name_en || '', product.id)}`)}
                       variant="outline"
                       size="sm"
                       className="gap-1"

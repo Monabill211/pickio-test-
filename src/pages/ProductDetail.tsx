@@ -11,20 +11,21 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getProductById, getProducts } from '@/services/productService';
+import { getCategories } from '@/services/categoryService';
 import { formatPrice } from '@/utils/formatPrice';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { Helmet } from 'react-helmet-async';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
-import { getCategories } from '@/services/categoryService';
-
+import { extractShortId, toSlugWithId } from '@/utils/slug';
 
 const ProductDetail: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
+  const id = slug ? extractShortId(slug) : '';
   const navigate = useNavigate();
 
-  // Fetch product from Firebase
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', id],
     queryFn: () => id ? getProductById(id) : null,
@@ -36,17 +37,10 @@ const ProductDetail: React.FC = () => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Convert Firebase product to display format (before hooks)
   const displayProduct = product ? {
     id: product.id,
-    name: {
-      ar: product.name_ar,
-      en: product.name_en,
-    },
-    description: {
-      ar: product.description_ar,
-      en: product.description_en,
-    },
+    name: { ar: product.name_ar, en: product.name_en },
+    description: { ar: product.description_ar, en: product.description_en },
     price: product.price,
     originalPrice: product.originalPrice || product.discountPrice,
     category: product.category || product.categoryId || '',
@@ -57,18 +51,21 @@ const ProductDetail: React.FC = () => {
     colors: product.colors || [],
     materials: product.materials || [],
   } : null;
-const { data: categories = [] } = useQuery({
-  queryKey: ['categories'],
-  queryFn: getCategories,
-});
-  // Fetch related products (must be before early returns)
+
+  const productAny = product as any;
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  });
+
   const { data: relatedProducts = [] } = useQuery({
     queryKey: ['relatedProducts', displayProduct?.category, id],
     queryFn: async () => {
       if (!displayProduct?.category) return [];
       const allProducts = await getProducts({ visible: true });
       return allProducts
-        .filter(p => 
+        .filter(p =>
           (p.category === displayProduct.category || p.categoryId === displayProduct.category) &&
           p.id !== displayProduct.id
         )
@@ -91,19 +88,17 @@ const { data: categories = [] } = useQuery({
     enabled: !!displayProduct?.category,
   });
 
-  // Set default color when product loads
   React.useEffect(() => {
     if (product?.colors && product.colors.length > 0) {
       setSelectedColor(product.colors[0]);
     }
   }, [product]);
-const Category = categories.find(
-  (c) => c.id === displayProduct?.category
-);
-  // Early returns after all hooks
+
+  const Category = categories.find(c => c.id === displayProduct?.category);
+
+  // ─── Loading ──────────────────────────────────────────────────────────────────
   if (isLoading) {
     return (
-      
       <div className="flex min-h-screen flex-col">
         <Header />
         <main className="flex-1 flex items-center justify-center py-12">
@@ -114,24 +109,24 @@ const Category = categories.find(
     );
   }
 
+  // ─── Not found ────────────────────────────────────────────────────────────────
   if (!product || !displayProduct) {
     return (
       <div className="flex min-h-screen flex-col">
-
-
+        <Helmet>
+          <title>المنتج غير موجود | Pickio Office</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
         <Header />
-        
         <main className="flex-1 flex items-center justify-center py-12">
           <div className="text-center max-w-md">
             <h1 className="text-4xl font-bold text-foreground mb-4">
               {isRTL ? 'المنتج غير موجود' : 'Product Not Found'}
             </h1>
             <p className="text-muted-foreground mb-2">
-              {isRTL ? 'عذراً، لم نتمكن من العثور على هذا المنتج' : 'Sorry, we couldn\'t find this product'}
+              {isRTL ? 'عذراً، لم نتمكن من العثور على هذا المنتج' : "Sorry, we couldn't find this product"}
             </p>
-            <p className="text-xs text-muted-foreground mb-6">
-              ID: {id}
-            </p>
+            <p className="text-xs text-muted-foreground mb-6">ID: {id || slug || '-'}</p>
             <div className="flex gap-2 justify-center">
               <Button onClick={() => navigate('/shop')} variant="default">
                 {isRTL ? 'العودة للمتجر' : 'Back to Shop'}
@@ -147,6 +142,7 @@ const Category = categories.find(
     );
   }
 
+  // ─── Handlers ─────────────────────────────────────────────────────────────────
   const handleAddToCart = () => {
     const cartItem = {
       id: displayProduct.id,
@@ -154,11 +150,11 @@ const Category = categories.find(
       price: displayProduct.price,
       image: displayProduct.image,
       color: selectedColor,
-      quantity: quantity,
+      quantity,
     };
 
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingItem = cart.find((item: any) => 
+    const existingItem = cart.find((item: any) =>
       String(item.id) === String(displayProduct.id) && item.color === selectedColor
     );
 
@@ -169,11 +165,7 @@ const Category = categories.find(
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Dispatch event to update header count
     window.dispatchEvent(new Event('cartUpdated'));
-    
-    // Show toast notification
     toast.success(`${quantity} x ${displayProduct.name[language]} ${isRTL ? 'تمت إضافته إلى السلة' : 'added to cart'}`);
   };
 
@@ -190,11 +182,8 @@ const Category = categories.find(
     }
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    
-    // Dispatch event to update header count
     window.dispatchEvent(new Event('wishlistUpdated'));
-    
-    // Show toast notification
+
     if (isWishlisted) {
       toast.info(`${displayProduct.name[language]} ${isRTL ? 'تمت إزالته من المفضلة' : 'removed from wishlist'}`);
     } else {
@@ -204,28 +193,63 @@ const Category = categories.find(
 
   const getColorValue = (color: string): string => {
     const colorMap: { [key: string]: string } = {
-      'beige': '#D4B896',
-      'gray': '#9CA3AF',
-      'brown': '#8B5A2B',
-      'navy': '#1E3A5F',
-      'terracotta': '#C86B4B',
-      'olive': '#6B8E23',
-      'white marble': '#F5F5F5',
-      'black marble': '#2D2D2D',
-      'natural oak': '#C4A77D',
-      'walnut': '#5C4033',
+      'beige': '#D4B896', 'gray': '#9CA3AF', 'brown': '#8B5A2B',
+      'navy': '#1E3A5F', 'terracotta': '#C86B4B', 'olive': '#6B8E23',
+      'white marble': '#F5F5F5', 'black marble': '#2D2D2D',
+      'natural oak': '#C4A77D', 'walnut': '#5C4033',
     };
-
     return colorMap[color.toLowerCase()] || '#E5E5E5';
   };
 
+  const productName = displayProduct.name[language];
+
+  // ─── Render ───────────────────────────────────────────────────────────────────
   return (
     <div className="flex min-h-screen flex-col">
 
-      <Header />
+      <Helmet>
+        <title>{displayProduct.name[language]} | Pickio Office</title>
+        <meta name="description" content={displayProduct.description[language]?.slice(0, 155)} />
+        <meta
+          name="keywords"
+          content={`${displayProduct.name.ar}, ${displayProduct.name.en}, ${Category?.name?.ar || ''}, أثاث مكتبي, مكاتب مودرن`}
+        />
 
+        <meta property="og:title" content={`${displayProduct.name[language]} | Pickio Office`} />
+        <meta property="og:description" content={displayProduct.description[language]?.slice(0, 155)} />
+        <meta property="og:image" content={displayProduct.image} />
+        <meta property="og:type" content="product" />
+        <meta property="og:locale" content="ar_EG" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${displayProduct.name[language]} | Pickio Office`} />
+        <meta name="twitter:description" content={displayProduct.description[language]?.slice(0, 155)} />
+        <meta name="twitter:image" content={displayProduct.image} />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": displayProduct.name.ar,
+            "description": displayProduct.description.ar,
+            "image": displayProduct.images,
+            "offers": {
+              "@type": "Offer",
+              "price": displayProduct.originalPrice || displayProduct.price,
+              "priceCurrency": "EGP",
+              "availability": displayProduct.inStock
+                ? "https://schema.org/InStock"
+                : "https://schema.org/OutOfStock",
+              "seller": { "@type": "Organization", "name": "Pickio Office" }
+            }
+          })}
+        </script>
+      </Helmet>
+
+      <Header />
       <main className="flex-1 py-8 md:py-12">
         <div className="container">
+
           {/* Breadcrumb */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -240,27 +264,21 @@ const Category = categories.find(
               {t('common.shop')}
             </button>
             <span>/</span>
-            <span className="text-foreground">{displayProduct.name[language]}</span>
+            <span className="text-foreground">{productName}</span>
           </motion.div>
 
           <div className="grid gap-8 md:grid-cols-2">
+
             {/* Image Gallery */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
               <div className="relative mb-4 overflow-hidden rounded-2xl bg-muted aspect-square">
                 <img
                   src={displayProduct.images?.[currentImageIndex] || displayProduct.image || '/placeholder.svg'}
-                  alt={displayProduct.name[language]}
+                  alt={productName}
                   className="h-full w-full object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/placeholder.svg';
-                  }}
+                  onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                 />
 
-                {/* Badge */}
                 {displayProduct.badge && (
                   <Badge
                     variant={displayProduct.badge === 'sale' ? 'destructive' : 'default'}
@@ -270,7 +288,6 @@ const Category = categories.find(
                   </Badge>
                 )}
 
-                {/* Image Navigation */}
                 {displayProduct.images && displayProduct.images.length > 1 && (
                   <>
                     <button
@@ -291,7 +308,6 @@ const Category = categories.find(
                 )}
               </div>
 
-              {/* Thumbnails */}
               {displayProduct.images && displayProduct.images.length > 0 && (
                 <div className="flex gap-2">
                   {displayProduct.images.map((img, idx) => (
@@ -305,11 +321,9 @@ const Category = categories.find(
                     >
                       <img
                         src={img}
-                        alt={product.name_ar || product.name_en}
+                        alt={`${productName} - ${idx + 1}`}
                         className="h-full w-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/placeholder.svg';
-                        }}
+                        onError={(e) => { (e.target as HTMLImageElement).src = '/placeholder.svg'; }}
                       />
                     </div>
                   ))}
@@ -318,36 +332,22 @@ const Category = categories.find(
             </motion.div>
 
             {/* Product Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              {/* Title & Rating */}
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
               <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {displayProduct.name[language]}
+                {productName}
               </h1>
 
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={cn(
-                        "h-5 w-5",
-                        i < Math.floor(product.rating || 0)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-muted"
-                      )}
-                    />
+                    <Star key={i} className={cn("h-5 w-5", i < Math.floor(productAny?.rating || 0) ? "fill-yellow-400 text-yellow-400" : "text-muted")} />
                   ))}
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {product.rating?.toFixed(1)} ({isRTL ? 'تقييمات' : 'Reviews'})
+                  {productAny?.rating?.toFixed?.(1)} ({isRTL ? 'تقييمات' : 'Reviews'})
                 </span>
               </div>
 
-              {/* Price */}
               <div className="mb-6 flex items-center gap-3">
                 <span className="text-3xl font-bold text-primary">
                   {formatPrice(displayProduct.originalPrice)}
@@ -358,66 +358,45 @@ const Category = categories.find(
                       {formatPrice(product.price)}
                     </span>
                     <Badge variant="destructive">
-                      {displayProduct.originalPrice ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.price) * 100) : 0}%
+                      {displayProduct.originalPrice
+                        ? Math.round(((displayProduct.originalPrice - displayProduct.price) / displayProduct.price) * 100)
+                        : 0}%
                     </Badge>
                   </>
                 )}
               </div>
 
-              {/* Description */}
               <p className="mb-6 text-muted-foreground leading-relaxed">
                 {displayProduct.description[language]}
               </p>
 
-              {/* Stock Status */}
               <div className="mb-6">
-                <p className={cn(
-                  "font-medium text-sm",
-                  displayProduct.inStock ? "text-green-600" : "text-destructive"
-                )}>
-                  {displayProduct.inStock ? t('common.inStock') : isRTL? ' ينتج حسب الطلب ': 'Made to order'}
+                <p className={cn("font-medium text-sm", displayProduct.inStock ? "text-green-600" : "text-destructive")}>
+                  {displayProduct.inStock ? t('common.inStock') : isRTL ? 'ينتج حسب الطلب' : 'Made to order'}
                 </p>
               </div>
 
-              {/* Color Selection */}
               {displayProduct.colors && displayProduct.colors.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="mb-3 font-semibold text-foreground">
-                    {isRTL ? 'اللون' : 'Color'}
-                  </h3>
+                  <h3 className="mb-3 font-semibold text-foreground">{isRTL ? 'اللون' : 'Color'}</h3>
                   <div className="flex gap-3 items-center">
                     {displayProduct.colors.map(color => {
-                      // Accept hex, rgb, or named color
                       let colorValue = color;
-                      if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) {
-                        colorValue = color;
-                      } else if (/^[A-Za-z]+$/.test(color)) {
-                        colorValue = getColorValue(color);
-                      } else {
-                        colorValue = '#E5E5E5'; // fallback gray
-                      }
+                      if (/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)) colorValue = color;
+                      else if (/^[A-Za-z]+$/.test(color)) colorValue = getColorValue(color);
+                      else colorValue = '#E5E5E5';
+
                       return (
                         <label key={color} className="flex flex-col items-center cursor-pointer">
-                          <input
-                            type="radio"
-                            name="color"
-                            value={color}
-                            checked={selectedColor === color}
-                            onChange={() => setSelectedColor(color)}
-                            className="sr-only"
-                          />
+                          <input type="radio" name="color" value={color} checked={selectedColor === color} onChange={() => setSelectedColor(color)} className="sr-only" />
                           <span
-                            className={cn(
-                              "h-10 w-10 rounded-full border-2 transition-all hover:scale-110",
-                              selectedColor === color
-                                ? "border-primary scale-110 ring-2 ring-primary ring-offset-2"
-                                : "border-border hover:border-primary"
+                            className={cn("h-10 w-10 rounded-full border-2 transition-all hover:scale-110",
+                              selectedColor === color ? "border-primary scale-110 ring-2 ring-primary ring-offset-2" : "border-border hover:border-primary"
                             )}
                             style={{ backgroundColor: colorValue }}
                             title={color}
                             aria-label={`Select ${color}`}
                           />
-                          {/* <span className="mt-1 text-xs text-muted-foreground">{color}</span> */}
                         </label>
                       );
                     })}
@@ -425,102 +404,57 @@ const Category = categories.find(
                 </div>
               )}
 
-              {/* Quantity & Actions */}
               <div className="mb-8 flex gap-3 flex-wrap sm:flex-nowrap">
                 <div className="flex items-center border border-border rounded-lg">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-4 py-2 hover:bg-muted transition-colors"
-                    aria-label="Decrease quantity"
-                  >
-                    −
-                  </button>
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="px-4 py-2 hover:bg-muted transition-colors" aria-label="Decrease quantity">−</button>
                   <span className="px-4 py-2 font-semibold min-w-12 text-center">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="px-4 py-2 hover:bg-muted transition-colors"
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
+                  <button onClick={() => setQuantity(quantity + 1)} className="px-4 py-2 hover:bg-muted transition-colors" aria-label="Increase quantity">+</button>
                 </div>
 
-                <Button
-                  size="lg"
-                  className="flex-1 gap-2"
-                  onClick={handleAddToCart}
-                >
+                <Button size="lg" className="flex-1 gap-2" onClick={handleAddToCart}>
                   <ShoppingCart className="h-5 w-5" />
                   <span className="hidden sm:inline">{t('common.addToCart')}</span>
                   <span className="sm:hidden">{isRTL ? 'إضافة' : 'Add'}</span>
                 </Button>
 
                 <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={handleToggleWishlist}
-                  className={cn(
-                    "transition-all hover:bg-red-300",
-                    isWishlisted && "bg-primary/10 text-primary border-primary "
-                  )}
+                  size="lg" variant="outline" onClick={handleToggleWishlist}
+                  className={cn("transition-all hover:bg-red-300", isWishlisted && "bg-primary/10 text-primary border-primary")}
                   aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
                 >
-                  <Heart
-                    className={cn(
-                      "h-5 w-5",
-                      isWishlisted && "fill-current"
-                    )}
-                  />
+                  <Heart className={cn("h-5 w-5", isWishlisted && "fill-current")} />
                 </Button>
 
-                <Button size="lg" variant="outline" aria-label="Share product" className='hover:bg-red-300'>
+                <Button size="lg" variant="outline" aria-label="Share product" className="hover:bg-red-300">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
 
-              {/* Additional Info */}
               <div className="grid gap-4 md:grid-cols-2 rounded-lg border border-border p-4 bg-muted/50">
                 <div>
                   <p className="text-xs text-muted-foreground mb-1 font-medium">SKU</p>
-                  <p className="font-semibold text-foreground">
-                    {product.name_ar ? (isRTL ? product.name_ar : product.name_en) : '-'}
-                    </p>  
+                  <p className="font-semibold text-foreground">{productAny?.sku || product.id || '-'}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1 font-medium">
-                    {isRTL ? 'الفئة' : 'Category'}
-                  </p>
-                
+                  <p className="text-xs text-muted-foreground mb-1 font-medium">{isRTL ? 'الفئة' : 'Category'}</p>
                   <p className="font-semibold text-foreground capitalize">
-                    
-{Category ? Category.name[language] : '-'}                  </p>
+                    {Category ? Category.name[language] : '-'}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground mb-1 font-medium">
-                    {isRTL ? 'الكمية المتاحة' : 'Stock Quantity'}
-                  </p>
-                  <p className="font-semibold text-foreground">
-                    {product.stock ?? displayProduct.inStock ?? '-'}
-                  </p>
+                  <p className="text-xs text-muted-foreground mb-1 font-medium">{isRTL ? 'الكمية المتاحة' : 'Stock Quantity'}</p>
+                  <p className="font-semibold text-foreground">{product.stock ?? (displayProduct.inStock ? '✓' : '—')}</p>
                 </div>
                 {displayProduct.materials && displayProduct.materials.length > 0 && (
                   <div>
-                    <p className="text-xs text-muted-foreground mb-1 font-medium">
-                      {isRTL ? 'المادة' : 'Material'}
-                    </p>
-                    <p className="font-semibold text-foreground">
-                      {displayProduct.materials.join(', ')}
-                    </p>
+                    <p className="text-xs text-muted-foreground mb-1 font-medium">{isRTL ? 'المادة' : 'Material'}</p>
+                    <p className="font-semibold text-foreground">{displayProduct.materials.join(', ')}</p>
                   </div>
                 )}
                 {product.sizes && product.sizes.length > 0 && (
                   <div>
-                    <p className="text-xs text-muted-foreground mb-1 font-medium">
-                      {isRTL ? 'المقاسات' : 'Sizes'}
-                    </p>
-                    <p className="font-semibold text-foreground">
-                      {product.sizes.join(' / ')}
-                    </p>
+                    <p className="text-xs text-muted-foreground mb-1 font-medium">{isRTL ? 'المقاسات' : 'Sizes'}</p>
+                    <p className="font-semibold text-foreground">{product.sizes.join(' / ')}</p>
                   </div>
                 )}
               </div>
@@ -528,70 +462,44 @@ const Category = categories.find(
           </div>
 
           {/* Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-12"
-          >
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-12">
             <Tabs defaultValue="description" className="w-full">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="description">
-                  {isRTL ? 'الوصف' : 'Description'}
-                </TabsTrigger>
-                <TabsTrigger value="details">
-                  {isRTL ? 'التفاصيل' : 'Details'}
-                </TabsTrigger>
-                <TabsTrigger value="reviews">
-                  {isRTL ? 'التقييمات' : 'Reviews'}
-                </TabsTrigger>
+                <TabsTrigger value="description">{isRTL ? 'الوصف' : 'Description'}</TabsTrigger>
+                <TabsTrigger value="details">{isRTL ? 'التفاصيل' : 'Details'}</TabsTrigger>
+                <TabsTrigger value="reviews">{isRTL ? 'التقييمات' : 'Reviews'}</TabsTrigger>
               </TabsList>
 
               <TabsContent value="description" className="rounded-lg border border-border p-6 mt-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {displayProduct.description[language]}
-                </p>
+                <p className="text-muted-foreground leading-relaxed">{displayProduct.description[language]}</p>
               </TabsContent>
 
               <TabsContent value="details" className="rounded-lg border border-border p-6 mt-4">
                 <ul className="space-y-4">
                   <li className="flex gap-4">
-                    <span className="font-semibold text-foreground min-w-32">
-                      {isRTL ? 'المادة' : 'Material'}
-                    </span>
-                    <span className="text-muted-foreground">Premium Wood</span>
+                    <span className="font-semibold text-foreground min-w-32">{isRTL ? 'المادة' : 'Material'}</span>
+                    <span className="text-muted-foreground">{displayProduct.materials?.join(', ') || 'Premium Wood'}</span>
                   </li>
                   <li className="flex gap-4">
-                    <span className="font-semibold text-foreground min-w-32">
-                      {isRTL ? 'الأبعاد' : 'Dimensions'}
-                    </span>
-                    <span className="text-muted-foreground">Varies by model</span>
+                    <span className="font-semibold text-foreground min-w-32">{isRTL ? 'الأبعاد' : 'Dimensions'}</span>
+                    <span className="text-muted-foreground">{productAny?.dimensions || (isRTL ? 'يختلف حسب الموديل' : 'Varies by model')}</span>
                   </li>
                   <li className="flex gap-4">
-                    <span className="font-semibold text-foreground min-w-32">
-                      {isRTL ? 'الضمان' : 'Warranty'}
-                    </span>
-                    <span className="text-muted-foreground">2 Years</span>
+                    <span className="font-semibold text-foreground min-w-32">{isRTL ? 'الضمان' : 'Warranty'}</span>
+                    <span className="text-muted-foreground">{productAny?.warranty || (isRTL ? 'سنتان' : '2 Years')}</span>
                   </li>
                 </ul>
               </TabsContent>
 
               <TabsContent value="reviews" className="rounded-lg border border-border p-6 mt-4">
-                <p className="text-muted-foreground">
-                  {isRTL ? 'لا توجد تقييمات حالياً' : 'No reviews yet'}
-                </p>
+                <p className="text-muted-foreground">{isRTL ? 'لا توجد تقييمات حالياً' : 'No reviews yet'}</p>
               </TabsContent>
             </Tabs>
           </motion.div>
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-12 pb-12"
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-12 pb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">
                 {isRTL ? 'منتجات ذات صلة' : 'Related Products'}
               </h2>
@@ -602,7 +510,7 @@ const Category = categories.find(
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + index * 0.1 }}
-                    onClick={() => navigate(`/product/${relProduct.id}`)}
+                    onClick={() => navigate(`/product/${toSlugWithId(relProduct.name.en, relProduct.id)}`)}
                     className="text-left hover:opacity-80 transition-opacity"
                   >
                     <div className="relative overflow-hidden rounded-lg bg-muted aspect-square mb-3 group">
@@ -623,10 +531,11 @@ const Category = categories.find(
               </div>
             </motion.div>
           )}
+
         </div>
       </main>
+
       <FloatingWhatsApp />
-      
       <Footer />
     </div>
   );

@@ -10,6 +10,7 @@ import { formatPrice } from '@/utils/formatPrice';
 import { getProductName } from '@/utils/safeProductAccess';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { toSlugWithId } from '@/utils/slug';
 
 interface Product {
   id: string;
@@ -150,11 +151,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
 
   const handleViewDetails = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${toSlugWithId(product.name.en, product.id)}`);
   };
 
   const handleCardClick = () => {
-    navigate(`/product/${product.id}`);
+    navigate(`/product/${toSlugWithId(product.name.en, product.id)}`);
   };
 
   const getColorValue = (color: string): string => {
