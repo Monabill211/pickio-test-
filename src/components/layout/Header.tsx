@@ -13,6 +13,7 @@ import {
 import { useLanguage } from '@/contexts/LanguageContext';
 import SearchAutocomplete from '@/components/SearchAutocomplete';
 import { cn } from '@/lib/utils';
+import logo from '@/assets/WhatsApp Image 2026-05-03 at 6.12.04 PM.png';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -91,10 +92,7 @@ const Header: React.FC = () => {
       <div className="container flex h-16 items-center justify-between gap-4 md:h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <span className="text-xl text-foreground md:text-2xl font-bold">
-
-<img src="/src/assets/WhatsApp Image 2026-05-03 at 6.12.04 PM.png" alt="Pickio Logo" className="h-8 w-auto" />
-          </span>
+          <img src={logo} alt="Pickio Logo" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}

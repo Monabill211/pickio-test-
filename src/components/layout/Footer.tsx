@@ -7,6 +7,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { FaTiktok } from "react-icons/fa";
+import logo from '@/assets/WhatsApp Image 2026-05-03 at 6.12.04 PM (1).png';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const Footer: React.FC = () => {
           {/* About */}
           <div className="space-y-4">
              <span className="text-xl font-bold text-white md:text-2xl font-bold">
-<img src="/src/assets/WhatsApp Image 2026-05-03 at 6.12.04 PM (1).png" alt="Pickio Logo" className="h-8 w-auto" />
+<img src={logo} alt="Pickio Logo" className="h-8 w-auto" />
           </span>
             <p className="text-sm text-background/70 leading-relaxed">
               {t('footer.aboutText')}
