@@ -1,5 +1,8 @@
 import React from "react";
 import { useLanguage } from '@/contexts/LanguageContext';
+import imgreview1 from "@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg";
+import imgreview2 from "@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg";
+import imgreview3 from "@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg";
 
 export default function ReviewsSection() {
   const { language, isRTL } = useLanguage();
@@ -17,67 +20,16 @@ export default function ReviewsSection() {
         Pic<span className="text-red-500">k</span>io
         </p>
       </div>
+<div className="flex flex-wrap justify-around " >
+<img src={imgreview1} alt="Review 1" className="h-64 object-cover rounded-lg mb-6" />
+<img src={imgreview2} alt="Review 2" className=" h-64 object-cover rounded-lg mb-6" />
+<img src={imgreview3} alt="Review 3" className=" h-64 object-cover rounded-lg mb-6" />
 
-      <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto ">
-        
-        {[
-  {
-    name: "Ahmed Ali",
-    company: "Vodafone",
-    review: isRTL ? 'خدمة ممتازة وجودة عالية جدًا في الأثاث ' : 'Excellent service and very high quality furniture',
-    rating: 5,
-  },
-  {
-    name: "Mohamed Salah",
-    company: "Orange",
-    review: isRTL ? ' التصميمات فخمة والتسليم كان في المعاد ' : 'The designs are luxurious and the delivery was on time.',
-    rating: 4,
-  },
-  {
-    name: "Omar Khaled",
-    company: "Etisalat",
-    review: isRTL ? ' تجربة رائعة وأنصح أي شركة تتعامل معاهم ' : 'A great experience, and I recommend them to any company.',
-    rating: 5,
-  },
-].map((item, i) => (
-          <div
-            key={i}
-            className="relative bg-white p-6 rounded-2xl shadow-md overflow-hidden 
-            transition-all duration-300 hover:-translate-y-2 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl group hover:shadow-[0_18px_40px_rgba(255,0,0,0.4)] transition"
-          >
-            
-            <div className="absolute top-0 left-0 w-0 h-0 
-            group-hover:w-full group-hover:h-full 
-            bg-gradient-to-br from-white/40 via-transparent to-transparent 
-            transition-all duration-500 pointer-events-none"></div>
+</div>
+      
+    
 
-            <div className="flex mb-3">
-
-              {[...Array(5)].map((_, index) => (
-                <span
-                  key={index}
-                  className={`text-xl ${
-                    index < item.rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-
-            <p className="text-gray-600 mb-4 leading-relaxed">
-              {item.review}
-            </p>
-
-            <div className="mt-4">
-              <h3 className="font-bold text-lg">{item.name}</h3>
-              <p className="text-sm text-gray-400">{item.company}</p>
-            </div>
-
-          </div>
-        ))}
-
-      </div>
+  
     </div>
   );
 }

@@ -93,8 +93,8 @@ const Footer: React.FC = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">{t('footer.contactUs')}</h3>
             <div className="space-y-3">
-               <a href="https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D" >
-              <div className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1">
+               <a href="https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D"  >
+              <div className="flex items-center gap-3 text-sm text-background/70 cursor-pointer hover:text-red-500 transition-all duration-300 ease-in-out hover:-translate-x-1" >
                 <MapPin className="h-5 w-5 flex-shrink-0" />
                 <span>{t('footer.address')}</span>
               </div> 
