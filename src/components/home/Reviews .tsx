@@ -21,9 +21,9 @@ export default function ReviewsSection() {
         </p>
       </div>
 <div className="flex flex-wrap justify-around " >
-<img src={imgreview1} alt="Review 1" className="h-64 object-cover rounded-lg mb-6" />
-<img src={imgreview2} alt="Review 2" className=" h-64 object-cover rounded-lg mb-6" />
-<img src={imgreview3} alt="Review 3" className=" h-64 object-cover rounded-lg mb-6" />
+<img src={imgreview1} alt="Review 1" className="h-64 object-cover rounded-lg mb-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 ease-in-out transition" />
+<img src={imgreview2} alt="Review 2" className=" h-64 object-cover rounded-lg mb-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 ease-in-out transition" />
+<img src={imgreview3} alt="Review 3" className=" h-64 object-cover rounded-lg mb-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1  ease-in-out transition" />
 
 </div>
       
