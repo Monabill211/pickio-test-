@@ -36,7 +36,9 @@ const Contact: React.FC = () => {
   const whatsappNumber = '201016434958'; // Without + for WhatsApp
   const email = 'pickiofurniture@gmail.com';
   const address = '٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر';
+  const address2 = '٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر';
   const googleMapsEmbed = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d215.7780410508913!2d31.34049276094898!3d30.081334548448968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z2acg2LTYp9ix2Lkg2LnYtdmF2Kog2KfZhNiu2LbYsdmKINmF2KrZgdix2Lkg2YXZhiDYtNin2LHYuSDYp9mE2YbYstmH2Ycg2K7ZhNmBINmF2LnYsdi2INiz2YrYp9ix2KfYqiDYp9mE2YTZitir2Yog2YTZhNiz2YrYp9ix2KfYqiDZhdiv2YrZhtipINmG2LXYsQ!5e0!3m2!1sen!2seg!4v1769039990865!5m2!1sen!2seg';
+  const googleMapsEmbed2 = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d215.7780410508913!2d31.34049276094898!3d30.081334548448968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z2acg2LTYp9ix2Lkg2LnYtdmF2Kog2KfZhNiu2LbYsdmKINmF2KrZgdix2Lkg2YXZhiDYtNin2LHYuSDYp9mE2YbYstmH2Ycg2K7ZhNmBINmF2LnYsdi2INiz2YrYp9ix2KfYqiDYp9mE2YTZitir2Yog2YTZhNiz2YrYp9ix2KfYqiDZhdiv2YrZhtipINmG2LXYsQ!5e0!3m2!1sen!2seg!4v1769039990865!5m2!1sen!2seg';
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -174,6 +176,11 @@ const Contact: React.FC = () => {
       icon: MapPin,
       title: isRTL ? 'العنوان' : 'Address',
       content: address,
+    },
+    {
+      icon: MapPin,
+      title: isRTL ? 'العنوان' : 'Address',
+      content: address2,
     },
     {
       icon: Phone,
@@ -450,6 +457,32 @@ const Contact: React.FC = () => {
               <div className="overflow-hidden rounded-3xl bg-muted">
                 <iframe
                   src={googleMapsEmbed}
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full"
+                  title={isRTL ? 'خريطة الموقع' : 'Location Map'}
+                />
+              </div>
+              
+              {/* Map Link */}
+              <div className="text-center">
+                <a
+                  href="https://maps.app.goo.gl/mdKoLkwmp8qC54kg6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline inline-flex items-center gap-2"
+                >
+                  <MapPin className="h-4 w-4" />
+                  {isRTL ? 'فتح في خرائط جوجل' : 'Open in Google Maps'}
+                </a>
+              </div>
+              <div className="overflow-hidden rounded-3xl bg-muted">
+                <iframe
+                  src={googleMapsEmbed2}
                   width="100%"
                   height="450"
                   style={{ border: 0 }}
