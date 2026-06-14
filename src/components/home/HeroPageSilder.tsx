@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import heroImagedesk from '@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg';
+import heroImagedesk from '@/assets/1777322646266__ImlJ18uTXW2LqBJn8inxQ.jpg';
 import heroImagemeeting from '@/assets/1775992329728_Bespoke_02_2.jpg';
 import heroImagehome from '@/assets/hero-living-room.jpg';
 
@@ -59,7 +59,7 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
             <div className="relative w-full h-screen">
               <img
                 src={slide.img}
-                className="w-full h-full object-fill"
+                className="w-full h-full object-fill md:object-cover"
                 alt=""
               />
 

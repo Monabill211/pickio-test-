@@ -1,20 +1,24 @@
 "use client";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
+import img1 from   "/src/assets/515284617_122260295624065933_5610130966832780824_n.jpg"
+import img2 from   "/src/assets/633070166_122294346500065933_4630169397484870933_n.jpg"
+import img3 from    "/src/assets/634112766_122294346578065933_2941442619308599864_n.jpg"
+import img4 from    "/src/assets/634176786_122294346614065933_8925254568524054283_n.jpg"
+import img5 from     "/src/assets/634680525_122294346506065933_2393679092297429208_n.jpg"
+import img6 from    "/src/assets/634365113_122294346566065933_6823146923597058310_n.jpg"
 
 const gallery = [
-  "/src/assets/515284617_122260295624065933_5610130966832780824_n.jpg",
-  "/src/assets/633070166_122294346500065933_4630169397484870933_n.jpg",
-  "/src/assets/634112766_122294346578065933_2941442619308599864_n.jpg",
-  "/src/assets/634176786_122294346614065933_8925254568524054283_n.jpg",
-  "/src/assets/634680525_122294346506065933_2393679092297429208_n.jpg",
-  "/src/assets/634365113_122294346566065933_6823146923597058310_n.jpg",
+img1,
+img2,
+img3,
+img4,
+img5,
+img6,
+ 
 ];
 
 export default function GallerySection() {
