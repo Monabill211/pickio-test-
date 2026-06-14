@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '@/contexts/LanguageContext';
-import bgImage from '@/assets/1775992329728_Bespoke_02_2.jpg'
+import bgImage from '@/assets/1777414338894_9uRBlAvqTpScomHq7m9aow.jpg'
 
 export default function Aboutinhome() {
       const { language, isRTL } = useLanguage();
@@ -41,7 +41,7 @@ export default function Aboutinhome() {
       </div>
       <div className='flex  flex-wrap  justify-between flex-col md:flex-row gap-5 bg-gray-200 'style={{padding:'10px'}}>
         <div className='w-550px '>
-            <img src={bgImage} alt="" className=''style={{height:"450px"}} />
+            <img src={bgImage} alt="" className='rounded-lg'style={{height:"450px"}} />
         </div>
         <div className='text-start'>
             <h1 className='text-4xl font-black flex justify-center items-center flex-row-reverse' >

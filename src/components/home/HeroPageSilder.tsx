@@ -57,10 +57,9 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
 ].map((slide, i) => (
           <SwiperSlide key={i}>
             <div className="relative w-full h-screen">
-              
               <img
                 src={slide.img}
-                className="w-full h-full object-cover md:object-cover object-contain"
+                className="w-full h-full object-fill"
                 alt=""
               />
 
