@@ -44,7 +44,7 @@ link: "/shop?category=9rwTSENuXmJ2gitDCTvf",
   },
   {
     img:heroImagemeeting ,
-    title: isRTL ? 'هل يوجد طربيزات اجتماعات ' : 'Are there meeting tables available ? ',
+    title: isRTL ? 'هل يوجد تربيزات اجتماعات ' : 'Are there meeting tables available ? ',
     desc: isRTL ? 'لدينا كل ما تحتاجه من اثاث مكتبي' : ' We have everything you need in office furniture. ',
     link: "/shop?category=8moIbcIcWaf5CdbJeiRf",
   },

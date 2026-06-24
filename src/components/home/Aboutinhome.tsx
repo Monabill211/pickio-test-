@@ -17,7 +17,7 @@ export default function Aboutinhome() {
            </h6>
         </div>
         <div className='flex flex-col gap-4'>
-        <h5 className='text-4xl'>+100</h5>
+        <h5 className='text-4xl'>+1000</h5>
         <h6 className='text-base'>
                       {isRTL ? '    عملاء راضون  ' : '  Satisfied customers '}
 
@@ -32,7 +32,7 @@ export default function Aboutinhome() {
       </h6>      
         </div>
         <div className='flex flex-col gap-4'>
-        <h5 className='text-4xl'>+1000</h5>
+        <h5 className='text-4xl'>+3000</h5>
         <h6 className='text-base'>
                       {isRTL ? 'منتج' : ' Project '}
           
@@ -53,7 +53,9 @@ export default function Aboutinhome() {
               
               </h1>
             <p className='text-lg leading-relaxed w-400px md:w-[630px]' style={{padding:"45px"}}>
-{isRTL ? 'نحن شركة متخصصة في تصميم وتصنيع الأثاث المكتبي الحديث، حيث نؤمن أن بيئة العمل القوية  تبدأ من تفاصيل المكان.بدأت رحلتنا بورشة صغيرة تعتمد على الشغف والجودة، ثم تطورنا من خلال التسويق والعمل المستمر حتى تمكنا من إنشاء أول معرض لنا،  لنقترب أكثر من عملائنا ونفهم احتياجاتهم بشكل أفضل. ' : ' We are a company specializing in the design and manufacture of modern office furniture, as we believe that a strong work environment starts with the details of the space. Our journey began with a small workshop based on passion and quality, and then we developed through marketing and continuous work until we were able to establish our first showroom, to get closer to our customers and better understand their needs.  '}
+{isRTL ? 
+
+'هي شركة مصرية متخصصة في تصنيع وتوريد األثاث المكتبي الراقي، تجمع بين خبرة التصنيع وجودة الخام  Pickio Furnitureات والتصميم العصري لتقديم حلول متكاملة تلبي احتياجات الشركات والمساحات اإلدارية الحديثة. نفخر بامتالكنا مصنعًا مجهز ًا بأحدث التقنيات ومعارض متعددة، مما يتيح لنا تقديم تجربة متكاملة تبدأ من التصميم واإلنتاج وحتى التسليم والتركيب، مع االلتزام بأعلى معايير ال جودة والدقة في التنفيذ. نؤمن بأن لكل عميل رؤية مختلفة، لذلك نوفر خدمة التصميم والتصنيع حسب الطلب (  Customization)، حيث يمكن تنفيذ وتعديل المقاسات، والخامات، واأللوان، وتخصيص أي موديل بما يتناسب مع هوية الشركة واحتياجاتها العملية. على مدار سنوات من الخبرة، ن جحنا في بناء ثقة عمالئنا من خالل تقديم منتجات تجمع بين الفخامة، والعملية، والمتانة، لنصنع مساحات عمل تعكس االحترافية وتدوم لسنوات.  …نصنع بيئات عمل استثنائية تجمع بين الجودة، واالبتكار، والتفاصيل التي تصنع  Pickio Furniture' : 'Our journey began with a simple belief: that a comfortable work environment makes a real difference in productivity and creativity. That is why we are committed to providing office furniture that combines high quality, modern design, and practical comfort to meet the needs of todays companies and organizations.Throughout our journey, we have worked to deliver comprehensive office solutions for businesses of all sizes, from ergonomic office chairs and executive desks to meeting tables and reception counters that create the first impression your clients deserve.  '}
 </p>
             <p className='text-lg leading-relaxed w-400px md:w-[630px]' style={{padding:"45px"}}>
               {isRTL ? 'نقدم خدماتنا في القاهرة وجميع أنحاء مصر، مع خبرة في تجهيز مكاتب الشركات في مدينة نصر، التجمع، والشيخ زايد، المعادي ، أكتوبر ، الإسكندرية ، الغردقة .' : ' We offer our services in Cairo and throughout Egypt, with expertise in equipping corporate offices in Nasr City, New Cairo, Sheikh Zayed, Maadi, 6th of October City, Alexandria, and Hurghada.  '}

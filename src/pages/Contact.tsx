@@ -36,9 +36,9 @@ const Contact: React.FC = () => {
   const whatsappNumber = '201016434958'; // Without + for WhatsApp
   const email = 'pickiofurniture@gmail.com';
   const address = '٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر';
-  const address2 = '٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر';
+  const address2 = '١٠٠١٩ المعراج العلوي بجوار كارفور و بنزيمة توتال - زهراء المعادي';
   const googleMapsEmbed = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d215.7780410508913!2d31.34049276094898!3d30.081334548448968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z2acg2LTYp9ix2Lkg2LnYtdmF2Kog2KfZhNiu2LbYsdmKINmF2KrZgdix2Lkg2YXZhiDYtNin2LHYuSDYp9mE2YbYstmH2Ycg2K7ZhNmBINmF2LnYsdi2INiz2YrYp9ix2KfYqiDYp9mE2YTZitir2Yog2YTZhNiz2YrYp9ix2KfYqiDZhdiv2YrZhtipINmG2LXYsQ!5e0!3m2!1sen!2seg!4v1769039990865!5m2!1sen!2seg';
-  const googleMapsEmbed2 = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d215.7780410508913!2d31.34049276094898!3d30.081334548448968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z2acg2LTYp9ix2Lkg2LnYtdmF2Kog2KfZhNiu2LbYsdmKINmF2KrZgdix2Lkg2YXZhiDYtNin2LHYuSDYp9mE2YbYstmH2Ycg2K7ZhNmBINmF2LnYsdi2INiz2YrYp9ix2KfYqiDYp9mE2YTZitir2Yog2YTZhNiz2YrYp9ix2KfYqiDZhdiv2YrZhtipINmG2LXYsQ!5e0!3m2!1sen!2seg!4v1769039990865!5m2!1sen!2seg';
+  const googleMapsEmbed2 = 'https://www.google.com/maps/place/TotalEnergies+Mearag+Service+Station+-+%D8%AA%D9%88%D8%AA%D8%A7%D9%84+%D8%A5%D9%86%D8%B1%D8%AC%D9%8A%D8%B2+%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D8%A7%D8%AC%E2%80%AD/@29.9752206,31.3161921,20.25z/data=!4m6!3m5!1s0x1458390698dd140f:0x8c645b6a380c144a!8m2!3d29.9756106!4d31.3157495!16s%2Fg%2F11b5pkbvns?entry=ttu&g_ep=EgoyMDI2MDYxMy4wIKXMDSoASAFQAw%3D%3D';
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -497,7 +497,7 @@ const Contact: React.FC = () => {
               {/* Map Link */}
               <div className="text-center">
                 <a
-                  href="https://maps.app.goo.gl/mdKoLkwmp8qC54kg6"
+                  href="https://www.google.com/maps/place/TotalEnergies+Mearag+Service+Station+-+%D8%AA%D9%88%D8%AA%D8%A7%D9%84+%D8%A5%D9%86%D8%B1%D8%AC%D9%8A%D8%B2+%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D8%A7%D8%AC%E2%80%AD/@29.9752206,31.3161921,20.25z/data=!4m6!3m5!1s0x1458390698dd140f:0x8c645b6a380c144a!8m2!3d29.9756106!4d31.3157495!16s%2Fg%2F11b5pkbvns?entry=ttu&g_ep=EgoyMDI2MDYxMy4wIKXMDSoASAFQAw%3D%3D"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-primary hover:underline inline-flex items-center gap-2"

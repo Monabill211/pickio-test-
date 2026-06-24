@@ -19,7 +19,7 @@ export default function ContactMe() {
           {isRTL ? 'تواصل معانا' : 'Contact Us '}
          
         </h1>
-        <h2 className="text-lg md:text-2xl text-[#00bacf] mt-3">
+        <h2 className="text-lg md:text-2xl text-gray-400 mt-3">
          
                     {isRTL ? 'تواصل مع فريق Pickio Office للحصول على عرض سعر مخصص يناسب احتياجات شركتك.' : 'Contact the Pickio Office team for a customized quote that suits your company`s needs.'}
 
@@ -116,9 +116,9 @@ export default function ContactMe() {
             },
             {
               title:  isRTL ? 'العنوان' : 'Address',
-              value: "  ٧ شارع عصمت الخضري متفرع من شارع النزهه خلف معرض سيارات الليثي للسيارات مدينة نصر",
+              value: "١٠٠١٩ المعراج العلوي بجوار كارفور و بنزيمة توتال - زهراء المعادي",
               icon: <AddLocationAltIcon />,
-              link: "https://www.google.com/maps/place/pickio+furniture/@30.0806352,31.3366236,17z/data=!3m1!4b1!4m6!3m5!1s0x14583f71e6c55aa7:0xa9074f9f3f7f557f!8m2!3d30.0806306!4d31.3414945!16s%2Fg%2F11stcsl3vv?hl=en&entry=ttu&g_ep=EgoyMDI2MDQwOC4wIKXMDSoASAFQAw%3D%3D",
+              link: "https://www.google.com/maps/dir//TotalEnergies+Mearag+Service+Station+-+%D8%AA%D9%88%D8%AA%D8%A7%D9%84+%D8%A5%D9%86%D8%B1%D8%AC%D9%8A%D8%B2+%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D8%A7%D8%AC,+Corniche+St,+%D8%A7%D9%84%D8%A8%D8%B3%D8%A7%D8%AA%D9%8A%D9%86+%D8%A7%D9%84%D8%B4%D8%B1%D9%82%D9%8A%D8%A9%D8%8C+%D9%82%D8%B3%D9%85+%D8%A7%D9%84%D8%A8%D8%B3%D8%A7%D8%AA%D9%8A%D9%86%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D9%82%D8%A7%D9%87%D8%B1%D8%A9%E2%80%AC+4235243%E2%80%AD/@30.014764,31.5027399,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x1458390698dd140f:0x8c645b6a380c144a!2m2!1d31.315771!2d29.9756476?entry=ttu&g_ep=EgoyMDI2MDYxMy4wIKXMDSoASAFQAw%3D%3D",
             },
           ].map((item, i) => (
             <a key={i} href={item.link}>

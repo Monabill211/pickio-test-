@@ -10,32 +10,7 @@ const ShippingDelivery: React.FC = () => {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
 
-  const shippingMethods = [
-    {
-      icon: Truck,
-      name: t('shipping.standard') || 'Standard Shipping',
-      duration: t('shipping.standardDays') || '5-7 business days',
-      cost: t('shipping.standardCost') || 'FREE on orders over $50',
-    },
-    {
-      icon: Clock,
-      name: t('shipping.express') || 'Express Shipping',
-      duration: t('shipping.expressDays') || '2-3 business days',
-      cost: '$15.99',
-    },
-    {
-      icon: PackageCheck,
-      name: t('shipping.overnight') || 'Overnight Shipping',
-      duration: t('shipping.overnightDays') || '1 business day',
-      cost: '$29.99',
-    },
-    {
-      icon: Globe,
-      name: t('shipping.international') || 'International Shipping',
-      duration: t('shipping.internationalDays') || '10-21 business days',
-      cost: t('shipping.internationalCost') || 'Calculated at checkout',
-    },
-  ];
+ 
 
   const deliveryInfo = [
     {
@@ -116,42 +91,7 @@ const ShippingDelivery: React.FC = () => {
           </div>
 
           {/* Shipping Methods Grid */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          >
-            {shippingMethods.map((method, index) => {
-              const Icon = method.icon;
-              return (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="rounded-2xl bg-card p-6 shadow-card hover:shadow-lg transition-shadow"
-                >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="mb-3 font-semibold text-foreground">{method.name}</h3>
-                  <div className="space-y-2">
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        {t('shipping.deliveryTime') || 'Delivery Time'}
-                      </p>
-                      <p className="font-medium text-foreground">{method.duration}</p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        {t('shipping.cost') || 'Cost'}
-                      </p>
-                      <p className="font-semibold text-primary">{method.cost}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
+        
 
           {/* Delivery Information Cards */}
           <motion.div
