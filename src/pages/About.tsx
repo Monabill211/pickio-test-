@@ -177,8 +177,7 @@ const About: React.FC = () => {
               </h2>
               <p className="mt-6 text-lg text-primary-foreground/80">
                 {isRTL
-                  ?  
-'ي تقديم حلول أثاث تتمثل مهمتنا ف  Pickio Furnitureفي مكتبي مبتكرة تجمع بين الجودة العالية، والتصميم العصري، والوظائف العملية، لنساعد الشركات على إنشاء بيئات عمل تعزز اإلنتاجية وتعكس هويتها االحترافية. ، مع االلتزام بأعلى ومن خالل قدراتنا التصنيعية وخدمات التخصيص حسب الطلب، نسعى إلى تحويل أفكار عمالئنا إلى واقع معايير الجودة، واالهتمام بأدق التفاصيل، وتقديم تجربة متكاملة تبدأ من التصميم وتنتهي بالتسليم والتركيب. '
+                  ?  'في Furniture Pickio تتمثل مهمتنا في تقديم حلول أثاث مكتبي مبتكرة تجمع بين الجودة العالية، والتصميم العصري، والوظائف العملية، لنساعد الشركات على إنشاء بيئات عمل تعزز اإلنتاجية وتعكس هويتها االحترافية.ومن خالل قدراتنا التصنيعية وخدمات التخصيص حسب الطلب، نسعى إلى تحويل أفكار عمالئنا إلى واقع، مع االلتزام بأعلى معايير الجودة، واالهتمام بأدق التفاصيل، وتقديم تجربة متكاملة تبدأ من التصميم وتنتهي بالتسليم والتركيب.'
 : 'We aim to redefine workspaces by providing innovative office furniture that combines luxury, functionality, and modern design. We strive to deliver comprehensive solutions for companies and offices, helping create comfortable and inspiring work environments while maintaining the highest standards of quality, craftsmanship, and finishing. We believe that a professional workspace is the foundation of success, creativity, and sustainable growth.'}
               </p>
             </div>
