@@ -55,6 +55,7 @@ const Footer: React.FC = () => {
                 <FaTiktok className=' hover:text-red-500 cursor-pointer ' />
               </a>
             </div>
+            
           </div>
 
           {/* Quick Links */}
@@ -120,6 +121,39 @@ const Footer: React.FC = () => {
               </div>
               </a>
             </div>
+           <div className="space-y-6 mt-6 ">
+
+  <div>
+    <h4 className="mb-3 text-white font-semibold">📍 فرع مصر الجديدة</h4>
+    <div className="overflow-hidden rounded-xl border border-white/10">
+       <iframe
+      title="Pickio Furniture - Heliopolis"
+      src="https://www.google.com/maps?q=30.08071,31.3418654&z=17&output=embed"
+      width="100%"
+      height="180"
+      style={{ border: 0 }}
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+    </div>
+  </div>
+
+  <div>
+    <h4 className="mb-3 text-white font-semibold">📍 فرع المعادي</h4>
+    <div className="overflow-hidden rounded-xl border border-white/10">
+      <iframe
+        title="Maadi Branch"
+        src="https://www.google.com/maps?q=29.9756106,31.3157495&z=17&output=embed"
+        width="100%"
+        height="180"
+        style={{ border: 0 }}
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+</div>
+
           </div>
         </div>
 

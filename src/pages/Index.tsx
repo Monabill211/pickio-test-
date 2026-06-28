@@ -12,6 +12,7 @@ import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 import Aboutinhome from '@/components/home/Aboutinhome';
 import Whywe from '@/components/home/Whywe';
 import ReviewsSection from '@/components/home/Reviews ';
+import SocialFAB from '@/components/layout/Socialfab';
 
 const Index: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const Index: React.FC = () => {
      <ReviewsSection /> 
         <Customers />
       </main>
+      <SocialFAB/>
       <FloatingWhatsApp />
       <Footer />
     </div>

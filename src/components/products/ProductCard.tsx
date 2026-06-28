@@ -186,11 +186,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
     >
       <div className="relative rounded-2xl bg-card shadow-card transition-shadow duration-300 hover:shadow-product">
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden bg-muted">
+        <div className="relative aspect-square overflow-hidden bg-muted ">
           <img
             src={product.image}
             alt={product.name[language] }
-            className="h-[120%] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-[110%] w-full object-contain transition-transform duration-500 group-hover:scale-105 "
           />
 
           {/* Badge */}
