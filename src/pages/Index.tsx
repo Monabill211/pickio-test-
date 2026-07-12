@@ -13,11 +13,14 @@ import ReviewsSection from '@/components/home/Reviews ';
 import SocialFAB from '@/components/layout/Socialfab';
 import OffersBanner from '@/components/home/ofeerbanar';
 import HomeEssentialsSection from '@/components/home/sactionhome';
+import PromoPopup from '@/components/home/Popup';
 
 const Index: React.FC = () => {
   return (
     <div className="flex min-h-screen flex-col"
     style={{overflow:"hidden"}}>
+            <PromoPopup />
+    
       <Header />
       <main className="flex-1">
        
