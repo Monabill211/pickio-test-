@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import img1 from '@/assets/hero-living-room.jpg';
+import img2 from '@/assets/1772015127064_Hce2cacf14490452ab9f4e175e52b0569G.jpg';
 const PromoPopup: React.FC = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -61,23 +62,34 @@ const PromoPopup: React.FC = () => {
             </button>
 
             {/* Banner image */}
-            <div className="relative h-48 w-full overflow-hidden sm:h-56">
-              <img
-                src="https://loremflickr.com/800/500/livingroom,furniture"
-                alt="عرض خاص"
-                className="h-full w-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/placeholder.svg';
-                }}
-              />
-            </div>
+   <div className="relative h-48 w-full overflow-hidden sm:h-56">
+  {/* الصورة الأولى - منزلي */}
+  <img
+    src={img1}
+    alt="Home Furniture"
+    className="absolute inset-0 h-full w-full object-cover"
+    style={{
+      clipPath: "polygon(0 0, 58% 0, 45% 100%, 0 100%)",
+    }}
+  />
+
+  {/* الصورة الثانية - مكتبي */}
+  <img
+    src={img2}
+    alt="Office Furniture"
+    className="absolute inset-0 h-full w-full object-cover"
+    style={{
+      clipPath: "polygon(58% 0, 100% 0, 100% 100%, 45% 100%)",
+    }}
+  />
+</div>
 
             {/* Content */}
             <div className="flex flex-col items-center text-center" style={{ padding: '28px 24px' }}>
               <span
                 className="mb-2 rounded-full font-bold"
                 style={{
-                  backgroundColor: '#1c2b45',
+                  backgroundColor: 'red',
                   color: '#f1e7da',
                   padding: '4px 16px',
                   fontSize: '13px',
@@ -88,7 +100,7 @@ const PromoPopup: React.FC = () => {
 
               <h3
                 className="font-extrabold"
-                style={{ color: '#1c2b45', fontSize: '26px', marginTop: '8px' }}
+                style={{ color: 'black', fontSize: '26px', marginTop: '8px' }}
               >
                 خصم 20% على أول طلب
               </h3>
@@ -104,10 +116,10 @@ const PromoPopup: React.FC = () => {
                 className="font-bold tracking-widest"
                 style={{
                   marginTop: '16px',
-                  border: '2px dashed #1c2b45',
+                  border: '2px dashed red',
                   borderRadius: '10px',
                   padding: '10px 24px',
-                  color: '#1c2b45',
+                  color: 'red',
                   fontSize: '18px',
                 }}
               >
@@ -119,7 +131,7 @@ const PromoPopup: React.FC = () => {
                 className="w-full font-bold transition-opacity hover:opacity-90"
                 style={{
                   marginTop: '20px',
-                  backgroundColor: '#1c2b45',
+                  backgroundColor: 'red',
                   color: '#f1e7da',
                   padding: '14px',
                   borderRadius: '10px',
