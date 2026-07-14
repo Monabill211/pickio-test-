@@ -14,6 +14,14 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+// بتاخد اسم الكاتجوري سواء كان string أو object لغات {ar, en}
+const getCategoryName = (name: any, language: string): string => {
+  if (!name) return '';
+  if (typeof name === 'string') return name;
+  if (typeof name === 'object') return name[language] || name.ar || name.en || '';
+  return '';
+};
+
 const CategoriesSection: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
@@ -23,10 +31,13 @@ const CategoriesSection: React.FC = () => {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   // Fetch categories from Firebase
-  const { data: categories = [], isLoading: categoriesLoading } = useQuery({
+  const { data: allCategories = [], isLoading: categoriesLoading, isError: categoriesError } = useQuery({
     queryKey: ['categories'],
     queryFn: () => getCategories(),
   });
+
+  // هات أول 9 كاتجوريز بس ومتجيبش أي حاجة بعدها
+  const categories = (allCategories ?? []).filter(Boolean).slice(0, 9);
 
   // Fetch products to count per category
   const { data: allProducts = [] } = useQuery({
@@ -50,9 +61,7 @@ const CategoriesSection: React.FC = () => {
               viewport={{ once: true }}
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
-              {/* {t('categories.title')} */}
-                            تسوق حسب القسم المكتبي
-
+              تسوق حسب القسم المكتبي
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -61,9 +70,7 @@ const CategoriesSection: React.FC = () => {
               transition={{ delay: 0.1 }}
               className="mt-4 text-muted-foreground"
             >
-              {/* {t('categories.subtitle')} */}
-                            كل حاجة مكتبك محتاجها في مكان واحد
-
+              كل حاجة مكتبك محتاجها في مكان واحد
             </motion.p>
           </div>
 
@@ -93,6 +100,10 @@ const CategoriesSection: React.FC = () => {
           <div className="flex items-center justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
+        ) : categoriesError ? (
+          <div className="text-center py-12 text-muted-foreground">
+            {isRTL ? 'حصل خطأ في تحميل الأقسام' : 'Error loading categories'}
+          </div>
         ) : categories.length > 0 ? (
           <Swiper
             onSwiper={(swiper) => (swiperRef.current = swiper)}
@@ -111,6 +122,8 @@ const CategoriesSection: React.FC = () => {
                 (p) => p.category === category.id || p.categoryId === category.id
               ).length;
 
+              const categoryName = getCategoryName(category.name, language);
+
               return (
                 <SwiperSlide key={category.id}>
                   <button
@@ -120,7 +133,7 @@ const CategoriesSection: React.FC = () => {
                     <div className="relative aspect-square overflow-hidden">
                       <img
                         src={category.image || '/placeholder.svg'}
-                        alt={category.name[language]}
+                        alt={categoryName}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = '/placeholder.svg';
@@ -131,7 +144,7 @@ const CategoriesSection: React.FC = () => {
 
                     <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
                       <h3 className="text-lg font-semibold text-background md:text-xl">
-                        {category.name[language]}
+                        {categoryName}
                       </h3>
                       <div className="mt-2 flex items-center gap-2 text-sm text-background/80">
                         <span>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -11,59 +11,72 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-// Static furniture categories - placeholder images via loremflickr (replace with real product photos later)
-const categories = [
-  {
-    id: 'bedroom',
-    name: 'غرف نوم',
-    image: 'https://loremflickr.com/640/640/bedroom,furniture',
-    count: 12,
-  },
-  {
-    id: 'dining',
-    name: 'غرف سفرة',
-    image: 'https://loremflickr.com/640/640/dining,table',
-    count: 8,
-  },
-  {
-    id: 'living',
-    name: 'انتريهات',
-    image: 'https://loremflickr.com/640/640/sofa,livingroom',
-    count: 15,
-  },
-  {
-    id: 'lighting',
-    name: 'إضاءة',
-    image: 'https://loremflickr.com/640/640/lamp,lighting',
-    count: 20,
-  },
-  {
-    id: 'kitchen',
-    name: 'مطابخ',
-    image: 'https://loremflickr.com/640/640/kitchen,cabinets',
-    count: 6,
-  },
-  {
-    id: 'office',
-    name: 'مكاتب',
-    image: 'https://loremflickr.com/640/640/office,desk',
-    count: 9,
-  },
-  {
-    id: 'decor',
-    name: 'ديكورات',
-    image: 'https://loremflickr.com/640/640/homedecor,vase',
-    count: 25,
-  },
-];
+// Firebase
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+interface Category {
+  id: string;
+  name: string | { ar?: string; en?: string };
+  image: string;
+  count: number;
+}
+
+// بتاخد اسم الكاتجوري سواء كان string أو object لغات {ar, en}
+const getCategoryName = (name: Category['name']): string => {
+  if (!name) return '';
+  if (typeof name === 'string') return name;
+  return name.ar || name.en || '';
+};
 
 const CategoriesSection: React.FC = () => {
   const navigate = useNavigate();
   const swiperRef = useRef<any>(null);
 
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const q = query(collection(db, 'categories'), orderBy('createdAt', 'asc'));
+        const snapshot = await getDocs(q);
+
+        const allCategories: Category[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Category, 'id'>),
+        }));
+
+        // بنبدأ من الكاتجوري العاشرة (index 9) ونستبعد أول 9
+        setCategories(allCategories.slice(9));
+      } catch (error) {
+        console.error('خطأ في جلب الكاتجوريز:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleCategoryClick = (categoryId: string) => {
     navigate(`/shop?category=${categoryId}`);
   };
+
+  if (loading) {
+    return (
+      <section style={{ paddingBlock: 'clamp(48px, 8vw, 96px)' }} dir="rtl">
+        <div className="container mx-auto px-4 text-center text-muted-foreground">
+          جاري تحميل الأقسام...
+        </div>
+      </section>
+    );
+  }
+
+  if (categories.length === 0) {
+    return null;
+  }
 
   return (
     <section style={{ paddingBlock: 'clamp(48px, 8vw, 96px)' }} dir="rtl">
@@ -80,7 +93,6 @@ const CategoriesSection: React.FC = () => {
               viewport={{ once: true }}
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
-
               تسوق حسب القسم المنزلي
             </motion.h2>
             <motion.p
@@ -127,42 +139,46 @@ const CategoriesSection: React.FC = () => {
           }}
           className="!overflow-visible"
         >
-          {categories.map((category) => (
-            <SwiperSlide key={category.id}>
-              <button
-                onClick={() => handleCategoryClick(category.id)}
-                className="group relative block w-full overflow-hidden rounded-2xl cursor-pointer transition-all hover:shadow-lg"
-              >
-                <div className="relative aspect-square overflow-hidden">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/placeholder.svg';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                </div>
+          {categories.map((category) => {
+            const categoryName = getCategoryName(category.name);
 
-                <div
-                  className="absolute inset-x-0 bottom-0"
-                  style={{ padding: 'clamp(12px, 3vw, 24px)' }}
+            return (
+              <SwiperSlide key={category.id}>
+                <button
+                  onClick={() => handleCategoryClick(category.id)}
+                  className="group relative block w-full overflow-hidden rounded-2xl cursor-pointer transition-all hover:shadow-lg"
                 >
-                  <h3 className="text-lg font-semibold text-white md:text-xl">
-                    {category.name}
-                  </h3>
-                  <div
-                    className="flex items-center text-sm text-white/80"
-                    style={{ gap: '8px', marginTop: '8px' }}
-                  >
-                    <span>{category.count} منتج</span>
-                    <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                  <div className="relative aspect-square overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={categoryName}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/placeholder.svg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   </div>
-                </div>
-              </button>
-            </SwiperSlide>
-          ))}
+
+                  <div
+                    className="absolute inset-x-0 bottom-0"
+                    style={{ padding: 'clamp(12px, 3vw, 24px)' }}
+                  >
+                    <h3 className="text-lg font-semibold text-white md:text-xl">
+                      {categoryName}
+                    </h3>
+                    <div
+                      className="flex items-center text-sm text-white/80"
+                      style={{ gap: '8px', marginTop: '8px' }}
+                    >
+                      <span>{category.count} منتج</span>
+                      <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                    </div>
+                  </div>
+                </button>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>

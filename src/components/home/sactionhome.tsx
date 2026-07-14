@@ -1,7 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-
+import imgdinerroom from '@/assets/modern-dining-room-in-black-and-white-dining-room-set-vitrine-furniture-8096136.webp';
+import imgliveingroom from '@/assets/l-shaped-sectional-modern-comfort-style-l-shape-sofa-set-vitrine-furniture-5724595.webp';
+import imgbadroom from '@/assets/full_bed_room.webp';
+import imghome from '@/assets/tv-unit-sleek-design-with-space-saving-shelves-furniture-vitrine-furniture-520299.webp';
 interface EssentialCategory {
   id: string;
   words: string[]; // each word on its own line
@@ -12,22 +15,22 @@ const essentialCategories: EssentialCategory[] = [
   {
     id: 'bedroom',
     words: ['أساسيات', 'غرفة', 'النوم'],
-    image: 'https://loremflickr.com/640/640/bedroom,furniture',
+    image: imgbadroom,
   },
   {
     id: 'living',
     words: ['أساسيات', 'غرفة', 'المعيشه'],
-    image: 'https://loremflickr.com/640/640/sofa,livingroom',
+    image:imgliveingroom,
   },
   {
     id: 'dining',
     words: ['أساسيات', 'غرفة', 'السفرة'],
-    image: 'https://loremflickr.com/640/640/dining,table',
+    image: imgdinerroom,
   },
   {
     id: 'office',
-    words: ['أساسيات', 'المكتب'],
-    image: 'https://loremflickr.com/640/640/office,desk',
+    words: ['أساسيات', 'المنزل'],
+    image: imghome,
   },
 ];
 
