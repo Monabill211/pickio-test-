@@ -20,6 +20,13 @@ import { matchesSearch } from '@/utils/searchUtils';
 import { formatPrice } from '@/utils/formatPrice';
 import type { Product } from '@/services/productService';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
+const getCategoryName = (name: any, language: string): string => {
+  if (!name) return '';
+  if (typeof name === 'string') return name;
+  if (typeof name === 'object') return name[language] || name.ar || name.en || '';
+  return '';
+};
+
 const Shop: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
@@ -193,29 +200,48 @@ const Shop: React.FC = () => {
     <div className="space-y-6">
       {/* Categories */}
       <div>
-        <h3 className="mb-4 font-semibold text-foreground">
-          {t('common.categories')}
-        </h3>
-        <div className="space-y-3">
-          {categories.map(category => {
-            const productCount = allProducts.filter(p => 
-              p.category === category.id || p.categoryId === category.id
-            ).length;
-            return (
-              <label key={category.id} className="flex items-center gap-3 cursor-pointer">
-                <Checkbox
-                  checked={selectedCategories.includes(category.id)}
-                  onCheckedChange={() => toggleCategory(category.id)}
-                />
-                <span className="text-sm text-muted-foreground">
-                  {category.name[language]} ({productCount})
-                </span>
-              </label>
-            );
-          })}
-        </div>
-      </div>
+  <h3 className="mb-4 font-semibold text-foreground">
+    {t('common.categories')}
+  </h3>
+  <div className="space-y-3">
+    {categories.map((category, index) => {
+      const productCount = allProducts.filter(p => 
+        p.category === category.id || p.categoryId === category.id
+      ).length;
 
+      const categoryName = getCategoryName(category.name, language);
+
+      return (
+        
+        <React.Fragment key={category.id}>
+              {index == 0 && (
+            <h2 className="mt-2 mb-1 text-sm font-bold text-foreground">
+              أثاث مكتبي
+            </h2>
+          )}  
+          <label className="flex items-center gap-3 cursor-pointer">
+            <Checkbox
+             checked={selectedCategories.includes(category.id)}
+              onCheckedChange={() => toggleCategory(category.id)}
+            />
+            <span className="text-sm text-muted-foreground">
+              {categoryName} ({productCount})
+            </span>
+            
+          </label>
+
+        
+          {index === 8 && (
+            <h2 className="mt-2 mb-1 text-sm font-bold text-foreground">
+              أثاث منزلي
+            </h2>
+          )}
+    
+        </React.Fragment>
+      );
+    })}
+  </div>
+</div>
       {/* Price Range */}
       <div>
         <h3 className="mb-4 font-semibold text-foreground">

@@ -11,6 +11,15 @@ import { Category } from '@/data/products';
 import { getCategories, subscribeToCategories } from '@/services/categoryService';
 import { getProducts } from '@/services/productService';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
+
+// بتاخد اسم الكاتجوري سواء كان string أو object لغات {ar, en}
+const getCategoryName = (name: any, language: string): string => {
+  if (!name) return '';
+  if (typeof name === 'string') return name;
+  if (typeof name === 'object') return name[language] || name.ar || name.en || '';
+  return '';
+};
+
 const Categories: React.FC = () => {
   const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
@@ -83,7 +92,14 @@ const Categories: React.FC = () => {
               {t('categories.subtitle')}
             </motion.p>
           </div>
-
+              <motion.div
+                        variants={item}
+                        className="col-span-full flex items-center py-4"
+                      >
+                        <h2 className="text-2xl font-bold text-foreground md:text-3xl">
+                          أثاث مكتبي
+                        </h2>
+                      </motion.div>
           {/* Loading */}
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-20">
@@ -115,42 +131,58 @@ const Categories: React.FC = () => {
               animate="show"
               className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {categories.map((category) => {
+              {categories.map((category, index) => {
                 const productCount = products.filter(
                   (p) => p.category === category.id || p.categoryId === category.id
                 ).length;
 
+                const categoryName = getCategoryName(category.name, language);
+
                 return (
-                  <motion.div key={category.id} variants={item}>
-                    <Link
-                      to={`/shop?category=${category.id}`}
-                      className="group relative block overflow-hidden rounded-3xl"
-                    >
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={category.image}
-                          alt={category.name[language]}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
-                      </div>
-
-                      <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
-                        <h3 className="text-lg font-semibold text-background md:text-xl">
-                          {category.name[language]}
-                        </h3>
-
-                        <div className="mt-2 flex items-center gap-2 text-sm text-background/80">
-                          <span>
-                            {productCount} {isRTL ? 'منتج' : 'Products'}
-                          </span>
-                          <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+                  <React.Fragment key={category.id}>
+                    <motion.div variants={item}>
+                      <Link
+                        to={`/shop?category=${category.id}`}
+                        className="group relative block overflow-hidden rounded-3xl"
+                      >
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <img
+                            src={category.image}
+                            alt={categoryName}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
                         </div>
-                      </div>
 
-                      <div className="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </Link>
-                  </motion.div>
+                        <div className="absolute inset-x-0 bottom-0 p-4 md:p-6">
+                          <h3 className="text-lg font-semibold text-background md:text-xl">
+                            {categoryName}
+                          </h3>
+
+                          <div className="mt-2 flex items-center gap-2 text-sm text-background/80">
+                            <span>
+                              {productCount} {isRTL ? 'منتج' : 'Products'}
+                            </span>
+                            <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1" />
+                          </div>
+                        </div>
+
+                        <div className="absolute inset-0 bg-primary/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      </Link>
+                    </motion.div>
+
+                    {/* بعد الكاتجوري التاسع (index 8) نكتب عنوان "أثاث منزلي" */}
+                    {index === 8 && (
+                      <motion.div
+                        variants={item}
+                        className="col-span-full flex items-center py-4"
+                      >
+                        <h2 className="text-2xl font-bold text-foreground md:text-3xl">
+                          أثاث منزلي
+                        </h2>
+                      </motion.div>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </motion.div>

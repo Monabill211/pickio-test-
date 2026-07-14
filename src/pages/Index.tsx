@@ -3,8 +3,11 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CategoriesSection from '@/components/home/categroyslideroffice';
 import CategoriesSectionhome from '@/components/home/categroysliderhome';
-import FeaturedProducts from '@/components/home/officeProducts';
-import HeroPageSilder from '@/components/home/HeroPageSilder';
+import OfficeProducts from '@/components/home/officeProducts';
+import MeetingProducts from '@/components/home/meetingProducts';
+import DadroomProducts from '@/components/home/badroomProducts';
+import FeaturedProducts from '@/components/home/deckorProducts';
+import DinerProducts from '@/components/home/deinerroomProducts';
 import ContactMe from '@/components/home/ContactMe';
 import Customers from '@/components/home/Customers';
 import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
@@ -15,6 +18,7 @@ import OffersBannerhome from '@/components/home/ofeerbanarhome';
 import OffersBanneroffice from '@/components/home/ofeerbanaroffice';
 import HomeEssentialsSection from '@/components/home/sactionhome';
 import PromoPopup from '@/components/home/Popup';
+import HeroPageSilder from '@/components/home/HeroPageSilder';
 
 const Index: React.FC = () => {
   return (
@@ -29,12 +33,12 @@ const Index: React.FC = () => {
         <CategoriesSection />
         <CategoriesSectionhome />
         <OffersBanneroffice />
-        <FeaturedProducts />
-        <FeaturedProducts />
+        <OfficeProducts />
+        <MeetingProducts />
         <HomeEssentialsSection />
-        <FeaturedProducts />
+        <DadroomProducts />
         <OffersBannerhome />
-        <FeaturedProducts />
+        <DinerProducts />
         <FeaturedProducts />
 
      <ReviewsSection /> 

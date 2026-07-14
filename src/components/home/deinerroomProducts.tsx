@@ -15,7 +15,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const OfficeProducts: React.FC = () => {
+const DinerProducts: React.FC = () => {
   const { t } = useTranslation();
   const { isRTL, language } = useLanguage();
   const swiperRef = useRef<any>(null);
@@ -41,7 +41,7 @@ const OfficeProducts: React.FC = () => {
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
               {/* {t('featured.title')} */}
-              مكاتب مدرين
+               غرف سفرة
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -140,4 +140,4 @@ const OfficeProducts: React.FC = () => {
   );
 };
 
-export default OfficeProducts;
+export default DinerProducts;

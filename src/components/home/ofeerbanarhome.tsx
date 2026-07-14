@@ -66,7 +66,7 @@ export default function OffersBannerhome() {
               <img
                 src={offer.image}
                 alt={offer.title}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
 
