@@ -2,40 +2,38 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import imgconsel from "@/assets/20d10560-ee4d-4555-ba42-380570b859bf.webp";
+import imgtebel from "@/assets/multi-use-center-table-coffee-tables-vitrine-furniture-8260115.webp";
+import imgtebeltv from "@/assets/multi-surface-table-modern-tv-unit-elegance-furniture-vitrine-furniture-348968.webp";
 
-/* ============================================================
-   MIRA — Offers Banner
-   بانر عروض بيتغيّر أوتوماتيك كل ٧ ثواني
-   غيّر OFFERS بعروضك الحقيقية (صورة + اسم المنتج + الأسعار)
-   ============================================================ */
 
 const OFFERS = [
   {
-    image: "https://picsum.photos/seed/offer-chair/900/700",
-    title: "كرسي جانبي",
-    oldPrice: "1,899",
-    newPrice: "1,249",
-    validUntil: "ساري حتى ٢١ يونيو",
+    image: imgconsel,
+    title: "كونسول استقبال مودرن",
+    oldPrice: "8,899",
+    newPrice: "5,249",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
   {
-    image: "https://picsum.photos/seed/offer-mirror/900/700",
-    title: "مرايا حائط دائرية",
-    oldPrice: "2,450",
-    newPrice: "1,690",
-    validUntil: "ساري حتى ٢٥ يونيو",
+    image: imgtebel,
+    title: "طاولة منتصف متعددة الاستخدام",
+    oldPrice: "9,450",
+    newPrice: "7,690",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
   {
-    image: "https://picsum.photos/seed/offer-lamp/900/700",
-    title: "أباجورة أرضية",
-    oldPrice: "1,320",
-    newPrice: "899",
-    validUntil: "ساري حتى ٣٠ يونيو",
+    image: imgtebeltv,
+    title: "طاولة متعددة الأسطح + وحدة تلفاز عصرية",
+    oldPrice: "10,320",
+    newPrice: "8,899",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
 ];
 
 const AUTOPLAY_MS = 10000;
 
-export default function OffersBanner() {
+export default function OffersBannerhome() {
   const [current, setCurrent] = useState(0);
   const timerRef = useRef(null);
 
@@ -86,7 +84,7 @@ export default function OffersBanner() {
                   className="text-[#1b2438] font-extrabold leading-tight"
                   style={{ fontSize: "1.9rem", transform: "rotate(-3deg)", marginBottom: "16px" }}
                 >
-                  عروض فلاش
+              عروض pic<span className="text-red-600">k</span>io Home
                 </h3>
                 <p
                   className="text-[#1b2438] font-semibold text-[1.1rem]"
@@ -110,7 +108,7 @@ export default function OffersBanner() {
                 </p>
                 <a
                   href="#"
-                  className="inline-block self-start bg-[#1b2438] text-white text-[0.85rem] font-semibold rounded-full hover:bg-[#0d121f] transition-colors duration-300"
+                  className="inline-block self-start bg-[#df1414] text-white text-[0.85rem] font-semibold rounded-full hover:bg-[#850c0c] transition-colors duration-300"
                   style={{ padding: "10px 26px" }}
                 >
                   اشتري الآن

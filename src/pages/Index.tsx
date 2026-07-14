@@ -11,7 +11,8 @@ import FloatingWhatsApp from '@/components/layout/FloatingWhatsApp';
 import Whywe from '@/components/home/Whywe';
 import ReviewsSection from '@/components/home/Reviews ';
 import SocialFAB from '@/components/layout/Socialfab';
-import OffersBanner from '@/components/home/ofeerbanar';
+import OffersBannerhome from '@/components/home/ofeerbanarhome';
+import OffersBanneroffice from '@/components/home/ofeerbanaroffice';
 import HomeEssentialsSection from '@/components/home/sactionhome';
 import PromoPopup from '@/components/home/Popup';
 
@@ -27,12 +28,12 @@ const Index: React.FC = () => {
         <HeroPageSilder />
         <CategoriesSection />
         <CategoriesSectionhome />
-        <OffersBanner />
+        <OffersBanneroffice />
         <FeaturedProducts />
         <FeaturedProducts />
         <HomeEssentialsSection />
         <FeaturedProducts />
-        <OffersBanner />
+        <OffersBannerhome />
         <FeaturedProducts />
         <FeaturedProducts />
 

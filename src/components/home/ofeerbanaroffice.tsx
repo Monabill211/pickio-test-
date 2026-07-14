@@ -3,39 +3,39 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-/* ============================================================
-   MIRA — Offers Banner
-   بانر عروض بيتغيّر أوتوماتيك كل ٧ ثواني
-   غيّر OFFERS بعروضك الحقيقية (صورة + اسم المنتج + الأسعار)
-   ============================================================ */
+import imgcherlither from "@/assets/download (2).jpg";
+import imgchermash from "@/assets/71tBzZnWREL._AC_SL1500_.jpg";
+import imgdesk from "@/assets/Des-Av123-01-700x700.webp";
+
 
 const OFFERS = [
   {
-    image: "https://picsum.photos/seed/offer-chair/900/700",
-    title: "كرسي جانبي",
-    oldPrice: "1,899",
-    newPrice: "1,249",
-    validUntil: "ساري حتى ٢١ يونيو",
+    image: imgcherlither,
+    title: "كرسي جلد فاخر",
+    oldPrice: "7,899",
+    newPrice: "5,249",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
   {
-    image: "https://picsum.photos/seed/offer-mirror/900/700",
-    title: "مرايا حائط دائرية",
-    oldPrice: "2,450",
-    newPrice: "1,690",
-    validUntil: "ساري حتى ٢٥ يونيو",
+    image: imgchermash,
+    title: "كرسي ماش مودرن",
+    oldPrice: "5,450",
+    newPrice: "3,690",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
   {
-    image: "https://picsum.photos/seed/offer-lamp/900/700",
-    title: "أباجورة أرضية",
-    oldPrice: "1,320",
-    newPrice: "899",
-    validUntil: "ساري حتى ٣٠ يونيو",
+    image: imgdesk,
+    title: "مكتب mdf مودرن",
+    oldPrice: "22,320",
+    newPrice: "17,899",
+    validUntil: "ساري حتى نفاذ الكمية ",
   },
 ];
+  
 
 const AUTOPLAY_MS = 10000;
 
-export default function OffersBanner() {
+export default function OffersBanneroffice() {
   const [current, setCurrent] = useState(0);
   const timerRef = useRef(null);
 
@@ -86,7 +86,7 @@ export default function OffersBanner() {
                   className="text-[#1b2438] font-extrabold leading-tight"
                   style={{ fontSize: "1.9rem", transform: "rotate(-3deg)", marginBottom: "16px" }}
                 >
-                  عروض فلاش
+              عروض pic<span className="text-red-600">k</span>io Offcie
                 </h3>
                 <p
                   className="text-[#1b2438] font-semibold text-[1.1rem]"
@@ -110,7 +110,7 @@ export default function OffersBanner() {
                 </p>
                 <a
                   href="#"
-                  className="inline-block self-start bg-[#1b2438] text-white text-[0.85rem] font-semibold rounded-full hover:bg-[#0d121f] transition-colors duration-300"
+                  className="inline-block self-start bg-[#df1414] text-white text-[0.85rem] font-semibold rounded-full hover:bg-[#850c0c] transition-colors duration-300"
                   style={{ padding: "10px 26px" }}
                 >
                   اشتري الآن
