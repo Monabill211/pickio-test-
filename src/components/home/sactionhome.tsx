@@ -1,44 +1,99 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import imgdinerroom from '@/assets/modern-dining-room-in-black-and-white-dining-room-set-vitrine-furniture-8096136.webp';
 import imgliveingroom from '@/assets/l-shaped-sectional-modern-comfort-style-l-shape-sofa-set-vitrine-furniture-5724595.webp';
 import imgbadroom from '@/assets/full_bed_room.webp';
 import imghome from '@/assets/tv-unit-sleek-design-with-space-saving-shelves-furniture-vitrine-furniture-520299.webp';
+
 interface EssentialCategory {
-  id: string;
-  words: string[]; // each word on its own line
+  id: string; // matchName: النص اللي هنبحث بيه في اسم الكاتجوري الحقيقي
+  matchName: string;
+  words: string[];
   image: string;
 }
 
 const essentialCategories: EssentialCategory[] = [
   {
     id: 'bedroom',
+    matchName: 'نوم', // أي كاتجوري اسمها فيه كلمة "نوم" هتترابط تلقائي
     words: ['أساسيات', 'غرفة', 'النوم'],
     image: imgbadroom,
   },
   {
     id: 'living',
+    matchName: 'معيشة',
     words: ['أساسيات', 'غرفة', 'المعيشه'],
-    image:imgliveingroom,
+    image: imgliveingroom,
   },
   {
     id: 'dining',
+    matchName: 'سفرة',
     words: ['أساسيات', 'غرفة', 'السفرة'],
     image: imgdinerroom,
   },
   {
     id: 'office',
+    matchName: 'عمل', // غيّر الكلمة دي لو اسم الكاتجوري في فايرستور مختلف
     words: ['أساسيات', 'المنزل'],
     image: imghome,
   },
 ];
 
+interface FirestoreCategory {
+  id: string;
+  name: string | { ar?: string; en?: string };
+}
+
+const getCategoryDisplayName = (name: FirestoreCategory['name']): string => {
+  if (!name) return '';
+  if (typeof name === 'string') return name;
+  return name.ar || name.en || '';
+};
+
 const HomeEssentialsSection: React.FC = () => {
   const navigate = useNavigate();
+  const [categoryIdMap, setCategoryIdMap] = useState<Record<string, string>>({});
 
-  const handleClick = (categoryId: string) => {
-    navigate(`/shop?category=${categoryId}`);
+  useEffect(() => {
+    const fetchAndMatchCategories = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'categories'));
+        const firestoreCategories: FirestoreCategory[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+        }));
+
+        const map: Record<string, string> = {};
+
+        essentialCategories.forEach((essential) => {
+          const found = firestoreCategories.find((fc) =>
+            getCategoryDisplayName(fc.name).includes(essential.matchName)
+          );
+          if (found) {
+            map[essential.id] = found.id;
+          }
+        });
+
+        setCategoryIdMap(map);
+      } catch (error) {
+        console.error('خطأ في جلب الكاتجوريز لمطابقة الأساسيات:', error);
+      }
+    };
+
+    fetchAndMatchCategories();
+  }, []);
+
+  const handleClick = (essentialId: string) => {
+    const realCategoryId = categoryIdMap[essentialId];
+    if (realCategoryId) {
+      navigate(`/shop?category=${realCategoryId}`);
+    } else {
+      // لو مفيش مطابقة، روح لصفحة الشوب عادي من غير فلتر
+      navigate('/shop');
+    }
   };
 
   return (
