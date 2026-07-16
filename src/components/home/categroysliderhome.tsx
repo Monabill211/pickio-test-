@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,6 +33,8 @@ const getCategoryName = (name: Category['name']): string => {
 const CategoriesSection: React.FC = () => {
   const navigate = useNavigate();
   const swiperRef = useRef<any>(null);
+  const { isRTL, language } = useLanguage();
+  const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,7 +96,7 @@ const CategoriesSection: React.FC = () => {
               viewport={{ once: true }}
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
-              تسوق حسب القسم المنزلي
+              {isRTL ? 'تسوق حسب القسم المنزلي' : 'Shop by Home Category'}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -103,7 +106,7 @@ const CategoriesSection: React.FC = () => {
               style={{ marginTop: '12px' }}
               className="text-muted-foreground"
             >
-              كل حاجة بيتك محتاجها في مكان واحد
+              {isRTL ? 'كل حاجة بيتك محتاجها في مكان واحد' : 'All your home essentials in one place'}
             </motion.p>
           </div>
 
@@ -127,18 +130,19 @@ const CategoriesSection: React.FC = () => {
         </div>
 
         {/* Categories Slider */}
-        <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          modules={[Navigation]}
-          dir="rtl"
-          spaceBetween={16}
-          slidesPerView={2}
-          breakpoints={{
-            640: { slidesPerView: 3, spaceBetween: 16 },
-            1024: { slidesPerView: 5, spaceBetween: 20 },
-          }}
-          className="!overflow-visible"
-        >
+       <Swiper
+  key={isRTL ? 'rtl' : 'ltr'}
+  onSwiper={(swiper) => (swiperRef.current = swiper)}
+  modules={[Navigation]}
+  dir={isRTL ? 'rtl' : 'ltr'}
+  spaceBetween={16}
+  slidesPerView={2}
+  breakpoints={{
+    640: { slidesPerView: 3, spaceBetween: 16 },
+    1024: { slidesPerView: 5, spaceBetween: 20 },
+  }}
+  className="!overflow-visible"
+>
           {categories.map((category) => {
             const categoryName = getCategoryName(category.name);
 
@@ -172,7 +176,7 @@ const CategoriesSection: React.FC = () => {
                       style={{ gap: '8px', marginTop: '8px' }}
                     >
                       <span>{category.count} منتج</span>
-                      <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                      <ArrowIcon className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
                     </div>
                   </div>
                 </button>

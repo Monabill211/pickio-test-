@@ -6,7 +6,8 @@ import { ArrowLeft, ArrowRight, Loader2, ChevronLeft, ChevronRight } from 'lucid
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { getFeaturedProducts } from '@/services/productService';
+import { getProducts } from '@/services/productService';
+import { getCategories } from '@/services/categoryService';
 import ProductCard from '@/components/products/ProductCard';
 
 // Swiper
@@ -15,17 +16,32 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const OfficeProducts: React.FC = () => {
+const ChersProducts: React.FC = () => {
   const { t } = useTranslation();
   const { isRTL, language } = useLanguage();
   const swiperRef = useRef<any>(null);
 
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight;
 
-  // Fetch featured products from Firebase
-  const { data: featuredProducts = [], isLoading, error } = useQuery({
-    queryKey: ['featuredProducts'],
-    queryFn: () => getFeaturedProducts(6),
+  // Fetch categories (بترتيبها الأصلي حسب order)
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => getCategories(),
+  });
+
+  // Fetch all visible products
+  const { data: allProducts = [], isLoading, error } = useQuery({
+    queryKey: ['products', 'visible'],
+    queryFn: () => getProducts({ visible: true }),
+  });
+
+  // ناخد الكاتجوري التالتة والرابعة بس (index 2 و 3)
+  const targetCategoryIds = categories.slice(0, 1).map((c) => c.id);
+
+  const featuredProducts = allProducts.filter((product) => {
+    const productCategory = String(product.category || '').trim();
+    const productCategoryId = String(product.categoryId || '').trim();
+    return targetCategoryIds.includes(productCategory) || targetCategoryIds.includes(productCategoryId);
   });
 
   return (
@@ -41,7 +57,7 @@ const OfficeProducts: React.FC = () => {
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
               {/* {t('featured.title')} */}
-              مكاتب مدرين
+{isRTL? 'مكاتب ': 'Office Desks'}       
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -54,8 +70,7 @@ const OfficeProducts: React.FC = () => {
             </motion.p>
           </div>
           <Button asChild variant="outline" className="gap-2 hover:bg-red-200">
-            <Link to="/shop">
-              {t('common.viewAll')}
+<Link to={`/shop?category=${targetCategoryIds.join(',')}`}>              {t('common.viewAll')}
               <ArrowIcon className="h-4 w-4 " />
             </Link>
           </Button>
@@ -87,8 +102,8 @@ const OfficeProducts: React.FC = () => {
             >
               <ChevronRight className="h-5 w-5" />
             </button>
-     
-    <Swiper
+
+            <Swiper
               onSwiper={(swiper) => (swiperRef.current = swiper)}
               modules={[Navigation]}
               dir={isRTL ? 'rtl' : 'ltr'}
@@ -140,4 +155,4 @@ const OfficeProducts: React.FC = () => {
   );
 };
 
-export default OfficeProducts;
+export default ChersProducts;

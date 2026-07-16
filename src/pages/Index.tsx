@@ -19,6 +19,7 @@ import OffersBanneroffice from '@/components/home/ofeerbanaroffice';
 import HomeEssentialsSection from '@/components/home/sactionhome';
 import PromoPopup from '@/components/home/Popup';
 import HeroPageSilder from '@/components/home/HeroPageSilder';
+import ChersProducts from '@/components/home/chersProducts';
 
 const Index: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const Index: React.FC = () => {
         <OffersBanneroffice />
         <OfficeProducts />
         <MeetingProducts />
+        <ChersProducts />
         <HomeEssentialsSection />
         <DadroomProducts />
         <OffersBannerhome />

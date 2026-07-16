@@ -36,7 +36,7 @@ const ChersProducts: React.FC = () => {
   });
 
   // ناخد الكاتجوري التالتة والرابعة بس (index 2 و 3)
-  const targetCategoryIds = categories.slice(9, 11).map((c) => c.id);
+  const targetCategoryIds = categories.slice(2, 4).map((c) => c.id);
 
   const featuredProducts = allProducts.filter((product) => {
     const productCategory = String(product.category || '').trim();
@@ -57,7 +57,7 @@ const ChersProducts: React.FC = () => {
               className="text-3xl font-bold text-foreground md:text-4xl"
             >
               {/* {t('featured.title')} */}
-              {isRTL? 'غرف نوم و غرف اطفال': 'Bedroom & Kids Rooms'}       
+              {isRTL? '  كراسي مكتب فاخرة ': 'Luxury Office Chairs'}       
 
             </motion.h2>
             <motion.p
