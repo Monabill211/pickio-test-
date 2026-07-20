@@ -53,47 +53,49 @@ const CategoriesSection: React.FC = () => {
     <section className="py-16 md:py-24">
       <div className="container">
         {/* Header */}
-        <div className="mb-12 flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-start">
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold text-foreground md:text-4xl"
-            >
-              تسوق حسب القسم المكتبي
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="mt-4 text-muted-foreground"
-            >
-              كل حاجة مكتبك محتاجها في مكان واحد
-            </motion.p>
-          </div>
-
-          {/* Custom nav arrows */}
-          {categories.length > 0 && (
-            <div className="mt-6 flex gap-3 md:mt-0">
-              <button
-                onClick={() => swiperRef.current?.slidePrev()}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
-                aria-label="Previous"
-              >
-                {isRTL ? <ArrowRight className="h-5 w-5" /> : <ArrowLeft className="h-5 w-5" />}
-              </button>
-              <button
-                onClick={() => swiperRef.current?.slideNext()}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
-                aria-label="Next"
-              >
-                {isRTL ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
-              </button>
-            </div>
-          )}
-        </div>
+     <div
+               className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-right"
+               style={{ marginBottom: 'clamp(32px, 5vw, 48px)' }}
+             >
+               <div>
+                 <motion.h2
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+                   className="text-3xl font-bold text-foreground md:text-4xl"
+                 >
+                   {isRTL ? 'تسوق حسب القسم المكتبي' : 'Shop by Office Category'}
+                 </motion.h2>
+                 <motion.p
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+                   transition={{ delay: 0.1 }}
+                   style={{ marginTop: '12px' }}
+                   className="text-muted-foreground"
+                 >
+                   {isRTL ? 'كل حاجة مكتبك محتاجها في مكان واحد' : 'All your office essentials in one place'}
+                 </motion.p>
+               </div>
+     
+               {/* Custom nav arrows */}
+               <div className="flex" style={{ gap: '12px', marginTop: '24px' }}>
+                 <button
+                   onClick={() => swiperRef.current?.slidePrev()}
+                   className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
+                   aria-label="السابق"
+                 >
+                   <ArrowRight className="h-5 w-5" />
+                 </button>
+                 <button
+                   onClick={() => swiperRef.current?.slideNext()}
+                   className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
+                   aria-label="التالي"
+                 >
+                   <ArrowLeft className="h-5 w-5" />
+                 </button>
+               </div>
+             </div>
 
         {/* Categories Slider */}
         {categoriesLoading ? (

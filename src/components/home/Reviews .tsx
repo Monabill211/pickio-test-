@@ -4,27 +4,29 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
-import img1 from   "/src/assets/515284617_122260295624065933_5610130966832780824_n.jpg"
-import img2 from   "/src/assets/633070166_122294346500065933_4630169397484870933_n.jpg"
-import img3 from    "/src/assets/634112766_122294346578065933_2941442619308599864_n.jpg"
-import img4 from    "/src/assets/634176786_122294346614065933_8925254568524054283_n.jpg"
-import img5 from     "/src/assets/634680525_122294346506065933_2393679092297429208_n.jpg"
-import img6 from    "/src/assets/634365113_122294346566065933_6823146923597058310_n.jpg"
+import { useLanguage } from "@/contexts/LanguageContext";
+import img1 from "/src/assets/515284617_122260295624065933_5610130966832780824_n.jpg"
+import img2 from "/src/assets/633070166_122294346500065933_4630169397484870933_n.jpg"
+import img3 from "/src/assets/634112766_122294346578065933_2941442619308599864_n.jpg"
+import img4 from "/src/assets/634176786_122294346614065933_8925254568524054283_n.jpg"
+import img5 from "/src/assets/634680525_122294346506065933_2393679092297429208_n.jpg"
+import img6 from "/src/assets/634365113_122294346566065933_6823146923597058310_n.jpg"
 
 const gallery = [
-img1,
-img2,
-img3,
-img4,
-img5,
-img6,
- 
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+  img6,
 ];
 
 export default function GallerySection() {
+  const { isRTL } = useLanguage();
+
   return (
     <section
-      dir="rtl"
+      dir={isRTL ? "rtl" : "ltr"}
       className=" text-black overflow-hidden"
       style={{
         padding: "120px 20px",
@@ -38,23 +40,35 @@ export default function GallerySection() {
         }}
       >
         <p className="text-primary tracking-[4px] text-xs font-bold mb-3">
-          OUR Reviews
+          {isRTL ? "آراء عملائنا" : "OUR REVIEWS"}
         </p>
 
         <h2 className="text-4xl md:text-6xl font-black mb-5">
-            اراء <span className="text-primary">عملائنا</span>
+          {isRTL ? (
+            <>
+              اراء <span className="text-primary">عملائنا</span>
+            </>
+          ) : (
+            <>
+              Our <span className="text-primary">Customers</span>
+            </>
+          )}
         </h2>
 
         <p className="text-black/60 max-w-2xl mx-auto leading-8">
-مجموعة من اراء عملائنا عن منتجاتنا وخدماتنا، نحن نقدر كل رأي ونستخدمه لتحسين تجربتكم معنا. نحن ملتزمون بتقديم أفضل جودة وخدمة لعملائنا الكرام.
+          {isRTL
+            ? "مجموعة من اراء عملائنا عن منتجاتنا وخدماتنا، نحن نقدر كل رأي ونستخدمه لتحسين تجربتكم معنا. نحن ملتزمون بتقديم أفضل جودة وخدمة لعملائنا الكرام."
+            : "A collection of our customers' reviews about our products and services. We value every opinion and use it to improve your experience with us. We are committed to providing the best quality and service to our valued customers."}
         </p>
       </div>
 
       <Swiper
+        key={isRTL ? "rtl" : "ltr"}
         effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
         loop={true}
+        dir={isRTL ? "rtl" : "ltr"}
         slidesPerView={3}
         spaceBetween={30}
         autoplay={{

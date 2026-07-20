@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from '@/services/productService';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -66,7 +67,10 @@ const CategoriesSection: React.FC = () => {
   const handleCategoryClick = (categoryId: string) => {
     navigate(`/shop?category=${categoryId}`);
   };
-
+  const { data: allProducts = [] } = useQuery({
+    queryKey: ['products', 'count'],
+    queryFn: () => getProducts({ visible: true }),
+  });
   if (loading) {
     return (
       <section style={{ paddingBlock: 'clamp(48px, 8vw, 96px)' }} dir="rtl">
@@ -85,49 +89,49 @@ const CategoriesSection: React.FC = () => {
     <section style={{ paddingBlock: 'clamp(48px, 8vw, 96px)' }} dir="rtl">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div
-          className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-right"
-          style={{ marginBottom: 'clamp(32px, 5vw, 48px)' }}
-        >
-          <div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold text-foreground md:text-4xl"
-            >
-              {isRTL ? 'تسوق حسب القسم المنزلي' : 'Shop by Home Category'}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              style={{ marginTop: '12px' }}
-              className="text-muted-foreground"
-            >
-              {isRTL ? 'كل حاجة بيتك محتاجها في مكان واحد' : 'All your home essentials in one place'}
-            </motion.p>
-          </div>
-
-          {/* Custom nav arrows */}
-          <div className="flex" style={{ gap: '12px', marginTop: '24px' }}>
-            <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
-              aria-label="السابق"
-            >
-              <ArrowRight className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => swiperRef.current?.slideNext()}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
-              aria-label="التالي"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+          <div
+                     className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-right"
+                     style={{ marginBottom: 'clamp(32px, 5vw, 48px)' }}
+                   >
+                     <div>
+                       <motion.h2
+                         initial={{ opacity: 0, y: 20 }}
+                         whileInView={{ opacity: 1, y: 0 }}
+                         viewport={{ once: true }}
+                         className="text-3xl font-bold text-foreground md:text-4xl"
+                       >
+                         {isRTL ? 'تسوق حسب القسم المكتبي' : 'Shop by Office Category'}
+                       </motion.h2>
+                       <motion.p
+                         initial={{ opacity: 0, y: 20 }}
+                         whileInView={{ opacity: 1, y: 0 }}
+                         viewport={{ once: true }}
+                         transition={{ delay: 0.1 }}
+                         style={{ marginTop: '12px' }}
+                         className="text-muted-foreground"
+                       >
+                         {isRTL ? 'كل حاجة مكتبك محتاجها في مكان واحد' : 'All your office essentials in one place'}
+                       </motion.p>
+                     </div>
+           
+                     {/* Custom nav arrows */}
+                     <div className="flex" style={{ gap: '12px', marginTop: '24px' }}>
+                       <button
+                         onClick={() => swiperRef.current?.slidePrev()}
+                         className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
+                         aria-label="السابق"
+                       >
+                         <ArrowRight className="h-5 w-5" />
+                       </button>
+                       <button
+                         onClick={() => swiperRef.current?.slideNext()}
+                         className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-muted"
+                         aria-label="التالي"
+                       >
+                         <ArrowLeft className="h-5 w-5" />
+                       </button>
+                     </div>
+                   </div>
 
         {/* Categories Slider */}
        <Swiper
@@ -145,7 +149,9 @@ const CategoriesSection: React.FC = () => {
 >
           {categories.map((category) => {
             const categoryName = getCategoryName(category.name);
-
+ const productCount = allProducts.filter(p => 
+                p.category === category.id || p.categoryId === category.id
+              ).length;
             return (
               <SwiperSlide key={category.id}>
                 <button
@@ -169,13 +175,13 @@ const CategoriesSection: React.FC = () => {
                     style={{ padding: 'clamp(12px, 3vw, 24px)' }}
                   >
                     <h3 className="text-lg font-semibold text-white md:text-xl">
-                      {categoryName}
+                        {category.name[language]}
                     </h3>
                     <div
                       className="flex items-center text-sm text-white/80"
                       style={{ gap: '8px', marginTop: '8px' }}
                     >
-                      <span>{category.count} منتج</span>
+                          {productCount} {isRTL ? 'منتج' : 'Products'}
                       <ArrowIcon className="h-4 w-4 transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
                     </div>
                   </div>

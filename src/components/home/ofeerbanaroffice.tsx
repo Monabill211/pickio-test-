@@ -1,62 +1,93 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useLanguage } from '@/contexts/LanguageContext';
+import { getProductById } from '@/services/productService';
+import type { Product } from '@/services/productService';
 
-import imgcherlither from "@/assets/download (2).jpg";
-import imgchermash from "@/assets/71tBzZnWREL._AC_SL1500_.jpg";
-import imgdesk from "@/assets/Des-Av123-01-700x700.webp";
-
-
-const OFFERS = [
-  {
-    image: imgcherlither,
-    title: "كرسي جلد فاخر",
-    oldPrice: "7,899",
-    newPrice: "5,249",
-    validUntil: "ساري حتى نفاذ الكمية ",
-  },
-  {
-    image: imgchermash,
-    title: "كرسي ماش مودرن",
-    oldPrice: "5,450",
-    newPrice: "3,690",
-    validUntil: "ساري حتى نفاذ الكمية ",
-  },
-  {
-    image: imgdesk,
-    title: "مكتب mdf مودرن",
-    oldPrice: "22,320",
-    newPrice: "17,899",
-    validUntil: "ساري حتى نفاذ الكمية ",
-  },
+// الـ IDs الحقيقية بتاعة المنتجات الثلاثة (الجزء اللي بعد آخر _ في كل رابط)
+const OFFER_IDS = [
+  "BCOvRwP2xebZVQ8iyKap", // ultra-luxury-executive-natural-wood-desk...
+  "CB5zySjBq9OQIkWns5ny", // premium-mesh-office-chair...
+  "cvBWeb06E4FomYJVXivo", // modern-mdf-meeting-table...
 ];
-  
 
 const AUTOPLAY_MS = 10000;
 
+// بتبني نفس شكل السلاج اللي صفحة المنتج بتتوقعه: name-slug_id
+const buildProductSlug = (product: Product, isRTL: boolean): string => {
+  const name = product.name_en || product.name_ar || 'product';
+  const slugified = name
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-');
+  return `${slugified}_${product.id}`;
+};
+
 export default function OffersBanneroffice() {
+  const { isRTL, language } = useLanguage();
   const [current, setCurrent] = useState(0);
   const timerRef = useRef(null);
 
+  // نجيب كل منتج بالـ ID بتاعه مباشرة
+  const productQueries = OFFER_IDS.map((id) =>
+    useQuery({
+      queryKey: ['product', id],
+      queryFn: () => getProductById(id),
+    })
+  );
+
+  const isLoading = productQueries.some((q) => q.isLoading);
+  const offers = productQueries
+    .map((q) => q.data)
+    .filter((p): p is Product => Boolean(p));
+
   useEffect(() => {
+    if (offers.length === 0) return;
     timerRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % OFFERS.length);
+      setCurrent((c) => (c + 1) % offers.length);
     }, AUTOPLAY_MS);
     return () => clearInterval(timerRef.current);
-  }, []);
+  }, [offers.length]);
 
-  const offer = OFFERS[current];
+  const currencyLabel = isRTL ? "جنيه" : "EGP";
+
+  if (isLoading) {
+    return (
+      <section dir={isRTL ? "rtl" : "ltr"} className="flex justify-center w-full bg-white" style={{ padding: "0 16px 30px" }}>
+        <div className="w-full max-w-6xl mx-auto rounded-2xl bg-[#faf6ec] flex items-center justify-center" style={{ minHeight: "300px" }}>
+          <span className="text-muted-foreground text-sm">
+            {isRTL ? "جاري تحميل العروض..." : "Loading offers..."}
+          </span>
+        </div>
+      </section>
+    );
+  }
+
+  if (offers.length === 0) {
+    return null;
+  }
+
+  const offer = offers[current] || offers[0];
+  const offerName = isRTL ? offer.name_ar : offer.name_en;
+  const offerImage = offer.images?.[0] || '/placeholder.svg';
+  const offerOldPrice = offer.originalPrice || offer.discountPrice;
+  const offerNewPrice = offer.price;
+  const offerSlug = buildProductSlug(offer, isRTL);
 
   return (
-    <section dir="rtl" className="flex justify-center w-full bg-white" style={{ padding: "0 16px 30px" }}>
+    <section dir={isRTL ? "rtl" : "ltr"} className="flex justify-center w-full bg-white" style={{ padding: "0 16px 30px" }}>
       <div
         className="relative w-full max-w-6xl mx-auto rounded-2xl overflow-hidden bg-[#faf6ec] flex flex-col sm:flex-row"
         style={{ minHeight: "300px" }}
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={current}
+            key={offer.id}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -66,9 +97,12 @@ export default function OffersBanneroffice() {
             {/* صورة المنتج */}
             <div className="relative w-full sm:w-1/2" style={{ minHeight: "220px" }}>
               <img
-                src={offer.image}
-                alt={offer.title}
+                src={offerImage}
+                alt={offerName}
                 className="absolute inset-0 w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/placeholder.svg';
+                }}
               />
             </div>
 
@@ -76,7 +110,7 @@ export default function OffersBanneroffice() {
             <div className="relative flex-1 flex items-center overflow-hidden">
               <div
                 className="absolute inset-0 bg-[#c9a227]"
-                style={{ clipPath: "polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%)" }}
+                style={{ clipPath: isRTL ? "polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%)" : "polygon(0% 0%, 82% 0%, 100% 100%, 0% 100%)" }}
               />
               <div
                 className="relative z-10 flex flex-col w-full"
@@ -86,35 +120,44 @@ export default function OffersBanneroffice() {
                   className="text-[#1b2438] font-extrabold leading-tight"
                   style={{ fontSize: "1.9rem", transform: "rotate(-3deg)", marginBottom: "16px" }}
                 >
-              عروض pic<span className="text-red-600">k</span>io Offcie
+                  {isRTL ? (
+                    <>عروض pic<span className="text-red-600">k</span>io Office</>
+                  ) : (
+                    <>Pic<span className="text-red-600">k</span>io Office Offers</>
+                  )}
                 </h3>
                 <p
                   className="text-[#1b2438] font-semibold text-[1.1rem]"
                   style={{ marginBottom: "10px" }}
                 >
-                  {offer.title}
+                  {offerName}
                 </p>
                 <div className="flex items-center" style={{ gap: "10px", marginBottom: "8px" }}>
-                  <span className="text-[#7a6a2e] text-[0.85rem] line-through opacity-70">
-                    {offer.oldPrice} جنيه
+                  {offerOldPrice && offerOldPrice > offerNewPrice && (
+                    <span className="text-[#7a6a2e] text-[0.85rem] line-through opacity-70">
+                      {offerOldPrice.toLocaleString()} {currencyLabel}
+                    </span>
+                  )}
+                       <span className="text-[#7a6a2e] text-[0.85rem] line-through opacity-70">
+                    {offer.originalPrice} {currencyLabel}
                   </span>
                   <span
                     className="bg-[#8c1d1d] text-white font-bold rounded-md"
                     style={{ padding: "2px 10px", fontSize: "1.05rem" }}
                   >
-                    {offer.newPrice} جنيه
+                    {offerNewPrice.toLocaleString()} {currencyLabel}
                   </span>
                 </div>
                 <p className="text-[#4a3f1a] text-[0.78rem]" style={{ marginBottom: "20px" }}>
-                  {offer.validUntil}
+                  {isRTL ? "ساري حتى نفاذ الكمية" : "Valid while stocks last"}
                 </p>
-                <a
-                  href="#"
+                <Link
+                  to={`/product/${offerSlug}`}
                   className="inline-block self-start bg-[#df1414] text-white text-[0.85rem] font-semibold rounded-full hover:bg-[#850c0c] transition-colors duration-300"
                   style={{ padding: "10px 26px" }}
                 >
-                  اشتري الآن
-                </a>
+                  {isRTL ? "اشتري الآن" : "Shop Now"}
+                </Link>
               </div>
             </div>
           </motion.div>
@@ -122,10 +165,10 @@ export default function OffersBanneroffice() {
 
         {/* نقط المؤشر */}
         <div
-          className="absolute z-20 bottom-4 left-4 flex items-center"
-          style={{ gap: "6px" }}
+          className="absolute z-20 bottom-4 flex items-center"
+          style={{ gap: "6px", ...(isRTL ? { left: "16px" } : { right: "16px" }) }}
         >
-          {OFFERS.map((_, i) => (
+          {offers.map((_, i) => (
             <span
               key={i}
               className={`rounded-full transition-all duration-300 ${
